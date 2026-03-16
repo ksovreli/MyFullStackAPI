@@ -37,5 +37,5 @@ To get this project running locally, follow these steps in your terminal:
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/ksovreli/MyFullStackAPI.git](https://github.com/ksovreli/MyFullStackAPI.git)
+git clone "https://github.com/ksovreli/MyFullStackAPI.git"
 cd MyFullStackAPI
