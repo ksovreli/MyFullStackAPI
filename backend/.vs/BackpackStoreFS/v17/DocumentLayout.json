@@ -1,0 +1,426 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\dtos\\backpackcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\dtos\\backpackcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\controllers\\wishlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\controllers\\wishlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260315173315_WishlistServiceAdded.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BackpackStoreFS\\Migrations\\20260315173315_WishlistServiceAdded.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\services\\iwishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\services\\iwishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\entities\\wishlistitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\entities\\wishlistitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\services\\ibasketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\services\\ibasketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\dtos\\basketitemcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\dtos\\basketitemcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\controllers\\basketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\controllers\\basketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\services\\ibackpackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\services\\ibackpackservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\services\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\services\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\data\\backpackcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\data\\backpackcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\entities\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\entities\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\entities\\backpack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\entities\\backpack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\dtos\\categorycreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\dtos\\categorycreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\controllers\\backpackscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\controllers\\backpackscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|c:\\users\\admin\\source\\repos\\asp,net\\backpackstorefs\\backpackstorefs\\models\\dtos\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01FAF1D-AB84-4278-8AD6-BD5D2A796AB0}|BackpackStoreFS\\BackpackStoreFS.csproj|solutionrelative:backpackstorefs\\models\\dtos\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260307202943_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BackpackStoreFS\\Migrations\\20260307202943_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260307193639_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BackpackStoreFS\\Migrations\\20260307193639_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WishlistController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\WishlistController.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Controllers\\WishlistController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\WishlistController.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Controllers\\WishlistController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T16:41:22.336Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IWishlistService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IWishlistService.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Services\\IWishlistService.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IWishlistService.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Services\\IWishlistService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T17:23:27.58Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IBasketService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IBasketService.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Services\\IBasketService.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IBasketService.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Services\\IBasketService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAuwCEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T17:27:36.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BasketItemCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\BasketItemCreateDto.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\DTOs\\BasketItemCreateDto.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\BasketItemCreateDto.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\DTOs\\BasketItemCreateDto.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBYAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T16:06:01.769Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ICategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\ICategoryService.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Services\\ICategoryService.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\ICategoryService.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Services\\ICategoryService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAkwBkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T17:53:40.877Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BackpackCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\BackpackCreateDto.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\DTOs\\BackpackCreateDto.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\BackpackCreateDto.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\DTOs\\BackpackCreateDto.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAmwBAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T15:54:09.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20260315173315_WishlistServiceAdded.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260315173315_WishlistServiceAdded.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Migrations\\20260315173315_WishlistServiceAdded.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260315173315_WishlistServiceAdded.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Migrations\\20260315173315_WishlistServiceAdded.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T17:33:15.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WishlistItem.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\WishlistItem.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\Entities\\WishlistItem.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\WishlistItem.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\Entities\\WishlistItem.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAuwAgAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T15:40:49.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Program.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Program.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Program.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABwAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T19:07:55.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BasketController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\BasketController.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Controllers\\BasketController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\BasketController.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Controllers\\BasketController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T13:56:18.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\User.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T13:20:56.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BasketItem.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\BasketItem.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\Entities\\BasketItem.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\BasketItem.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\Entities\\BasketItem.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T16:07:54.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IBackpackService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IBackpackService.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Services\\IBackpackService.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IBackpackService.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Services\\IBackpackService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAD4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T17:40:20.31Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Backpack.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\Backpack.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\Entities\\Backpack.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\Backpack.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\Entities\\Backpack.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAiwDoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T12:56:54.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\Entities\\Category.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\Entities\\Category.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\Entities\\Category.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBAAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T13:35:50.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAQwDwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T18:44:06.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BackpackContext.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Data\\BackpackContext.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Data\\BackpackContext.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Data\\BackpackContext.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Data\\BackpackContext.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwC4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T13:53:52.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BackpacksController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\BackpacksController.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Controllers\\BackpacksController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\BackpacksController.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Controllers\\BackpacksController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T12:44:42.356Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IAuthService.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Services\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Services\\IAuthService.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Services\\IAuthService.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAYwDMAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T17:20:18.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAABEAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T18:41:14.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CategoryCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\CategoryCreateDto.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\DTOs\\CategoryCreateDto.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\CategoryCreateDto.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\DTOs\\CategoryCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T17:54:25.9Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "UserCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\UserCreateDto.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Models\\DTOs\\UserCreateDto.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Models\\DTOs\\UserCreateDto.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Models\\DTOs\\UserCreateDto.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA5wCMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T17:01:57.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "20260307202943_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260307202943_InitialCreate.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Migrations\\20260307202943_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260307202943_InitialCreate.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Migrations\\20260307202943_InitialCreate.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T20:29:43.198Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "20260307193639_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260307193639_InitialCreate.cs",
+              "RelativeDocumentMoniker": "BackpackStoreFS\\Migrations\\20260307193639_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\Asp,net\\BackpackStoreFS\\BackpackStoreFS\\Migrations\\20260307193639_InitialCreate.cs",
+              "RelativeToolTip": "BackpackStoreFS\\Migrations\\20260307193639_InitialCreate.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T19:36:39.564Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
