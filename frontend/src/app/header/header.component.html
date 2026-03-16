@@ -1,0 +1,47 @@
+<header>
+    <div class="logo" (click)="navigateToHome()">
+        <h2 style="color: #A29C9C;">THE</h2>
+        <h2 style="color: #EEE6E6;">APEX</h2>
+    </div>
+
+    <nav [ngClass]="{'active': menuOpen}">
+        <ul>
+            <li><a routerLink="/home" (click)="menuOpen = false">HOME</a></li>
+            <li><a routerLink="/products" (click)="menuOpen = false">SHOP</a></li>
+            <li><a (click)="scrollTo('about'); menuOpen = false">ABOUT</a></li>
+            <li><a (click)="scrollTo('contact'); menuOpen = false">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-actions">
+        <div class="user-dropdown">
+            <button class="action-btn"><i class="fa-solid fa-circle-user"></i></button>
+            <div class="dropdown-menu">
+                @if (isLoggedIn()) {
+                    <a (click)="logout()">Logout</a>
+                } @else {
+                    <a routerLink="/login">Login</a>
+                    <a routerLink="/register">Register</a>
+                }
+            </div>
+        </div>
+
+        <button class="action-btn wishlist-btn" routerLink="/wishlist">
+            <span class="icon"><i class="fa-solid fa-heart"></i></span>
+            @if (wishlistCount() > 0) {
+                <span class="badge">{{ wishlistCount() }}</span>
+            }
+        </button>
+
+        <button class="action-btn cart-btn" routerLink="/cart">
+            <span class="icon"><i class="fa-solid fa-cart-arrow-down"></i></span>
+            @if (cartCount() > 0) {
+                <span class="badge">{{ cartCount() }}</span>
+            }
+        </button>
+
+        <div class="burgerMenu" (click)="menuOpen = !menuOpen" [ngClass]="{'open': menuOpen}">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</header>

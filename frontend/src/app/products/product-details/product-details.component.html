@@ -1,0 +1,79 @@
+@if (product) {
+<div class="product-page">
+    <button class="go-back-button" (click)="goBack()">
+        <div class="button-box">
+            <span class="button-elem">
+                <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                    </path>
+                </svg>
+            </span>
+            <span class="button-elem">
+                <svg viewBox="0 0 46 40">
+                    <path
+                        d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                    </path>
+                </svg>
+            </span>
+        </div>
+    </button>
+
+
+    <div class="details-container">
+        <div class="visual-side">
+            <div class="image-box">
+                <img [src]="product.image" [alt]="product.name">
+            </div>
+        </div>
+
+        <div class="info-side">
+            <span class="category-tag">{{ product.categoryName }}</span>
+            <h1>{{ product.name }}</h1>
+
+            <div class="price-box">
+                @if (product.salePrice) {
+                <span class="current-price">${{ product.salePrice }}</span>
+                <span class="old-price">${{ product.price }}</span>
+                }
+
+                @else {
+                <span class="current-price">${{ product.price }}</span>
+                }
+            </div>
+
+            <p class="description">
+                Engineered for the modern explorer, the {{ product.name }} combines
+                minimalist design with maximum durability. Built from weather-resistant
+                materials and featuring ergonomic support for all-day carry.
+            </p>
+
+            <div class="actions">
+                <button (click)="add(product)" class="buy-btn">Add to Cart</button>
+                <button class="wishlist-btn" [class.active]="wishlistService.isInWishlist(product.id)"
+                    (click)="wishlistService.toggleWishlist(product)">
+                    <i
+                        [class]="wishlistService.isInWishlist(product.id) ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+                </button>
+            </div>
+
+            <div class="rating">
+                @for (star of [1, 2, 3, 4, 5]; track $index) {
+                @if (product.rating >= star) {
+                <span class="star full">★</span>
+                }
+
+                @else if (product.rating >= star - 0.5) {
+                <span class="star half">★</span>
+                }
+
+                @else {
+                <span class="star empty">★</span>
+                }
+                }
+                <span class="rating-value">({{ product.rating }})</span>
+            </div>
+        </div>
+    </div>
+</div>
+}

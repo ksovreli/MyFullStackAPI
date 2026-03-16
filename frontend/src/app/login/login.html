@@ -1,0 +1,48 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Welcome back</h2>
+      <p>Enter the expedition</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
+      <div class="input-group">
+        <label [style.color]="email.invalid && email.touched ? '#ff4d4d' : ''">Email Address</label>
+        <input 
+          type="email" 
+          name="email" 
+          [(ngModel)]="loginData.email" 
+          #email="ngModel"
+          placeholder="name@apex.com" 
+          required 
+          email>
+        @if (email.invalid && email.touched) {
+          <span class="error-msg">Please enter a valid apex email</span>
+        }
+      </div>
+
+      <div class="input-group">
+        <label [style.color]="password.invalid && password.touched ? '#ff4d4d' : ''">Password</label>
+        <input 
+          type="password" 
+          name="password" 
+          [(ngModel)]="loginData.password" 
+          #password="ngModel"
+          placeholder="••••••••" 
+          required
+          minlength="6">
+        @if (password.invalid && password.touched) {
+          <span class="error-msg">Password must be at least 6 characters</span>
+        }
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="!loginForm.valid">
+        Login
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>New to the peak? <a routerLink="/register">Create an account</a></p>
+    </div>
+  </div>
+</div>

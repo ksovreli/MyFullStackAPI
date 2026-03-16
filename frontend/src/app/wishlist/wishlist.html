@@ -1,0 +1,97 @@
+<div class="wishlist-container">
+
+  <header class="wishlist-header">
+    <h1>YOUR GEAR SELECTION</h1>
+    <p class="subtitle">
+      {{ wishlistService.items().length }} ITEMS PREPARED FOR DEPLOYMENT
+    </p>
+  </header>
+
+  @if (wishlistService.items().length > 0) {
+
+  <section class="wishlist-grid">
+
+    @for (item of wishlistService.items(); track item.id) {
+
+    <article class="wishlist-card">
+
+      <div class="image-wrapper" [routerLink]="['/product', item.id]">
+
+        <img [src]="item.image" [alt]="item.name" loading="lazy" />
+
+        <button class="remove-btn" (click)="wishlistService.toggleWishlist(item); $event.stopPropagation()"
+          title="Remove from wishlist">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+      <div class="card-info">
+
+        <div class="details">
+
+          <h3 [routerLink]="['/product', item.id]">
+            {{ item.name }}
+          </h3>
+
+          <div class="price-box">
+
+            @if (item.salePrice) {
+
+            <span class="current-price">
+              ${{ item.salePrice }}
+            </span>
+
+            <span class="old-price">
+              ${{ item.price }}
+            </span>
+
+            } @else {
+
+            <span class="current-price">
+              ${{ item.price }}
+            </span>
+
+            }
+
+          </div>
+
+        </div>
+
+        <button class="buy-btn" (click)="moveToCart(item); $event.stopPropagation()">
+          ADD TO CART
+        </button>
+
+      </div>
+
+    </article>
+
+    }
+
+  </section>
+
+  }
+
+  @else {
+
+  <section class="empty-state">
+
+    <div class="empty-icon">
+      <i class="fa-regular fa-heart"></i>
+    </div>
+
+    <h2>NO GEAR SAVED</h2>
+
+    <p>
+      Your tactical collection is empty. Explore our latest backpacks.
+    </p>
+
+    <button routerLink="/products" class="explore-btn">
+      BACK TO SHOP
+    </button>
+
+  </section>
+
+  }
+
+</div>

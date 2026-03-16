@@ -1,0 +1,122 @@
+<div class="shop-wrapper">
+    <aside class="sidebar">
+        <div class="filter-section">
+            <h4>Categories</h4>
+            <ul>
+                <li [class.active]="selectedCategory === 'All Collections'"
+                    (click)="filterByCategory('All Collections')">
+                    All Collections
+                </li>
+
+                <li [class.active]="selectedCategory === 'Backpacks'" (click)="filterByCategory('Backpacks')">
+                    Backpacks
+                </li>
+
+                <li [class.active]="selectedCategory === 'Duffel Bags'" (click)="filterByCategory('Duffel Bags')">
+                    Duffel Bags
+                </li>
+
+                <li [class.active]="selectedCategory === 'Travel Packs'" (click)="filterByCategory('Travel Packs')">
+                    Travel Packs
+                </li>
+
+                <li [class.active]="selectedCategory === 'New Arrivals'" (click)="filterByCategory('New Arrivals')">
+                    New Arrivals
+                </li>
+            </ul>
+        </div>
+
+        <div class="filter-section">
+            <h4>Sort By</h4>
+
+            <div class="custom-select-container" (click)="toggleDropdown()" (blur)="isDropdownOpen = false"
+                tabindex="0">
+
+                <div class="selected-value">
+                    {{ selectedSortLabel }}
+                    <span class="arrow" [class.open]="isDropdownOpen"></span>
+                </div>
+
+                @if (isDropdownOpen) {
+                <ul class="options-list">
+                    <li (click)="onOptionClick($event, 'Recommended')">
+                        Recommended
+                    </li>
+                    <li (click)="onOptionClick($event, 'Price: Low to High')">
+                        Price: Low to High
+                    </li>
+                    <li (click)="onOptionClick($event, 'Price: High to Low')">
+                        Price: High to Low
+                    </li>
+                    <li (click)="onOptionClick($event, 'Top Rated')">
+                        Top Rated
+                    </li>
+                    <li (click)="onOptionClick($event, 'Newest')">
+                        Newest
+                    </li>
+                </ul>
+                }
+            </div>
+        </div>
+    </aside>
+
+    <main class="products-main">
+        <div class="grid-header">
+            @if (selectedCategory === 'All Collections') { <h1>All Collections</h1> }
+            @else if (selectedCategory === 'Backpacks') { <h1>Backpacks</h1> }
+            @else if (selectedCategory === 'Duffel Bags') { <h1>Duffel Bags</h1> }
+            @else if (selectedCategory === 'Travel Packs') { <h1>Travel Packs</h1> }
+            @else if (selectedCategory === 'New Arrivals') { <h1>New Arrivals</h1> }
+            <p>Premium carry-goods for the modern traveler.</p>
+        </div>
+
+        <div class="grid-container">
+            @for (product of filteredProducts; track product.id) {
+            <div class="product-card" [routerLink]="['/product', product.id]"> @if (product.salePrice) {
+                <div class="badge sale">Sale</div>
+                }
+
+                @else if (product.isNew) {
+                <div class="badge new">New</div>
+                }
+
+                <div class="img-wrapper">
+                    <img [src]="product.image" [alt]="product.name">
+                </div>
+
+                <h3>{{ product.name }}</h3>
+
+                <div class="price">
+                    @if (product.salePrice) {
+                    <span class="oldPrice">${{ product.price }}</span>
+                    <span class="newPrice">${{ product.salePrice }}</span>
+                    }
+
+                    @else {
+                    <span class="newPrice">${{ product.price }}</span>
+                    }
+                </div>
+
+
+
+                <div class="rating">
+                    @for (star of [1, 2, 3, 4, 5]; track $index) {
+                    @if (product.rating >= star) {
+                    <span class="star full">★</span>
+                    }
+
+                    @else if (product.rating >= star - 0.5) {
+                    <span class="star half">★</span>
+                    }
+
+                    @else {
+                    <span class="star empty">★</span>
+                    }
+                    }
+                    <span class="rating-value">({{ product.rating }})</span>
+                </div>
+            </div>
+            }
+        </div>
+    </main>
+</div>

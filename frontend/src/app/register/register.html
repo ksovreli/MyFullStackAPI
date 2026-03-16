@@ -1,0 +1,63 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Join the peak</h2>
+      <p>Create your apex account</p>
+    </div>
+
+    <form (ngSubmit)="onRegister()" #regForm="ngForm" novalidate>
+      <div class="input-group">
+        <label [style.color]="username.invalid && username.touched ? '#ff4d4d' : ''">Username</label>
+        <input 
+          type="text" 
+          name="username" 
+          [(ngModel)]="regData.username" 
+          #username="ngModel"
+          placeholder="ApexRunner" 
+          required 
+          minlength="3">
+        @if (username.invalid && username.touched) {
+          <span class="error-msg">Username is required (min 3 chars)</span>
+        }
+      </div>
+
+      <div class="input-group">
+        <label [style.color]="email.invalid && email.touched ? '#ff4d4d' : ''">Email Address</label>
+        <input 
+          type="email" 
+          name="email" 
+          [(ngModel)]="regData.email" 
+          #email="ngModel"
+          placeholder="name@apex.com" 
+          required 
+          email>
+        @if (email.invalid && email.touched) {
+          <span class="error-msg">Enter a valid email address</span>
+        }
+      </div>
+
+      <div class="input-group">
+        <label [style.color]="password.invalid && password.touched ? '#ff4d4d' : ''">Password</label>
+        <input 
+          type="password" 
+          name="password" 
+          [(ngModel)]="regData.password" 
+          #password="ngModel"
+          placeholder="••••••••" 
+          required
+          minlength="6">
+        @if (password.invalid && password.touched) {
+          <span class="error-msg">Password must be at least 6 characters</span>
+        }
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="!regForm.valid">
+        Create Account
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already a member? <a routerLink="/login">Login here</a></p>
+    </div>
+  </div>
+</div>
