@@ -28,3 +28,14 @@ A full-stack application featuring a C# .NET Web API backend and an Angular fron
 * **Frontend:** Angular, TypeScript, CSS/SCSS
 * **Backend:** .NET 8, C#, Entity Framework Core
 * **Database:** SQL Server (or whatever you are using!)
+
+---
+
+## ⌨️ How to Run (Terminal/Bash)
+
+To get this project running locally, follow these steps in your terminal:
+
+### 1. Clone the repository
+```bash
+git clone [https://github.com/ksovreli/MyFullStackAPI.git](https://github.com/ksovreli/MyFullStackAPI.git)
+cd MyFullStackAPI
