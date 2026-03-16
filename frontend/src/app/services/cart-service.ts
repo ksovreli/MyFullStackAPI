@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { AuthService } from './auth-service';
@@ -17,17 +17,24 @@ export class CartService {
   private isRefreshing = false
 
   constructor() {
-    this.refreshCart()
+    effect(() => {
+      this.refreshCart()
+    })
   }
 
   refreshCart() {
-    const userId = this.auth.currentUser()?.id
-    
-    if (!userId || this.isRefreshing) return
+    const user = this.auth.currentUser()
 
-    this.isRefreshing = true 
+    if (!user) {
+      this.items.set([])
+      return;
+    }
 
-    this.http.get<Product[]>(`${this.apiUrl}/${userId}`)
+    if (this.isRefreshing) return
+
+    this.isRefreshing = true
+
+    this.http.get<Product[]>(`${this.apiUrl}/${user.id}`)
       .subscribe({
         next: (data) => {
           this.items.set(data)
@@ -58,21 +65,29 @@ export class CartService {
         next: () => {
           this.refreshCart()
           this.showToast('Added to cart!', 'success')
+        },
+        error: (err) => {
+          console.error('Add to cart failed', err);
+          this.showToast('Failed to add item', 'info')
         }
       })
   }
 
   updateQuantity(basketItemId: number, newQuantity: number) {
-    if (newQuantity < 1) return 
+    if (newQuantity < 1) {
+      return
+    }
     this.http.put(`${this.apiUrl}/${basketItemId}?quantity=${newQuantity}`, {})
       .subscribe(() => this.refreshCart())
   }
 
   removeItem(basketItemId: number) {
     this.http.delete(`${this.apiUrl}/${basketItemId}`)
-      .subscribe(() => {
-        this.refreshCart()
-        this.showToast('Removed from cart', 'info')
+      .subscribe({
+        next: () => {
+          this.refreshCart();
+          this.showToast('Removed from cart', 'info');
+        }
       })
   }
 
