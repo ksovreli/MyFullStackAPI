@@ -1,0 +1,119 @@
+<main>
+    <section class="banner-container">
+        <div class="banner-overlay"></div>
+
+        <img class="banner-image" src="images/banner.png" alt="Built for the journey">
+
+        <div class="banner-content">
+            <h1>BUILT FOR THE JOURNEY</h1>
+            <button routerLink="/products" class="shop-btn">SHOP NOW</button>
+            <i (click)="scrollTo('arrivals')" class="fa-solid fa-arrow-down animate-bounce"></i>
+        </div>
+    </section>
+
+    <section class="arrivals-container" id="arrivals">
+        <div class="new-arrivals">
+            <h2 data-aos="fade-right">NEW ARRIVALS</h2>
+            <button routerLink="/products" data-aos="fade-right" class="shop-btn">SHOP NOW</button>
+        </div>
+
+        <div class="product">
+            <img src="/images/ad-backpack.png" alt="">
+        </div>
+    </section>
+
+    <section class="topics">
+        <div class="backPacks" routerLink="/products" [queryParams]="{ category: 'Backpacks' }">
+            <img src="/images/backpack-topic.png" alt="Backpacks">
+            <div class="overlay-container">
+                <h2>BACKPACKS</h2>
+            </div>
+        </div>
+
+        <div class="duffleBags" routerLink="/products" [queryParams]="{ category: 'Duffel Bags' }">
+            <img src="/images/duffelbag-topic.png" alt="Duffle Bags">
+            <div class="overlay-container">
+                <h2>DUFFLE BAGS</h2>
+            </div>
+        </div>
+
+        <div class="travelPacks" routerLink="/products" [queryParams]="{ category: 'Travel Packs' }">
+            <img src="/images/travelpack-topic.png" alt="Travel Packs">
+            <div class="overlay-container">
+                <h2>TRAVEL PACKS</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="sale-container">
+        <div class="sale-header">
+            <h2>NOW ON SALE</h2>
+            <p>UP TO 50% OFF</p>
+        </div>
+
+        <div class="bags-container">
+            @for (product of saleProducts; track $index) {
+            <div class="bag-card" data-aos="fade-right">
+                <img [routerLink]="['/product', 'apex-voyager-id']" [src]="product.image" [alt]="product.name">
+
+                <h3>{{product.name}}</h3>
+                <div class="price">
+                    <span class="old-price">${{product.price}}</span>
+                    <span class="new-price">${{product.salePrice}}</span>
+                </div>
+                <div class="overlay-container">
+                    <button class="details-btn" [routerLink]="['/product', product.id]">Details</button>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+
+    <section class="about-container" id="about">
+        <article class="about-description">
+            <div class="about-note" data-aos="fade-up-right" data-aos-duration="500">
+                <h2>ABOUT ME</h2>
+                <p>
+                    Hey! I'm Sandro, a passionate front-end developer who loves turning ideas into clean, modern, and
+                    responsive websites.
+
+                    I specialize in building user-friendly interfaces with HTML, CSS, and JavaScript, and I enjoy
+                    creating designs that look great on any device.
+
+                    My focus is always on writing efficient code and delivering smooth, interactive user experiences
+                    that bring projects to life.
+                </p>
+            </div>
+        </article>
+
+        <article class="about-photo-container">
+            <img src="/images/coding-picture.png" alt="">
+        </article>
+    </section>
+
+    <section class="contact-container" id="contact">
+        <div class="contact-form">
+            <form action="">
+                <input type="text" placeholder="Full Name *" required>
+                <input type="email" placeholder="Email *" required>
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Message *" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+
+            <div class="contact-info">
+                <h2>Contact</h2>
+                <p class="contact-text">
+                    We'd love to hear from you.<br><br>
+
+                    Whether you have a question,<br>
+                    want to discuss a project,<br>
+                    or are ready to start something new — <strong>drop us a line</strong>.<br><br>
+
+                    We reply to every message personally,<br>
+                    usually within a few hours.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>

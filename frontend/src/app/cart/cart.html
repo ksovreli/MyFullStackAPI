@@ -1,0 +1,100 @@
+<div class="apex-cart-wrapper">
+  <div class="container">
+    <header class="cart-header">
+      <div class="title-group">
+        <h1>Your Inventory</h1>
+        <div class="status-pill">{{ items().length }} Units</div>
+      </div>
+      
+      <div class="shipping-goal">
+        <div class="goal-text">
+          @if (total() < 150) {
+            Add <span>${{ 150 - total() }}</span> more for Free Express Shipping
+          } @else {
+            <span class="unlocked">Free Express Shipping Unlocked</span>
+          }
+        </div>
+        <div class="progress-bar">
+          <div class="fill" [style.width.%]="(total() / 150) * 100"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="cart-grid">
+      <section class="items-column">
+        @for (item of items(); track item.id) {
+          <article class="cart-card">
+            <div class="product-preview">
+              <div class="img-container">
+                <img [src]="item.image" [alt]="item.name" loading="lazy">
+              </div>
+              <div class="product-details">
+                <p class="category">{{ item.categoryName }}</p>
+                <h3>{{ item.name }}</h3>
+                <button (click)="removeItem(item.id)" class="text-remove-btn">
+                  Remove item
+                </button>
+              </div>
+            </div>
+
+            <div class="controls-group">
+              <div class="quantity-control">
+                <button (click)="changeQuantity(item, -1)" [disabled]="item.quantity === 1">−</button>
+                <span class="qty">{{ item.quantity ?? 1 }}</span>
+                <button (click)="changeQuantity(item, 1)">+</button>
+              </div>
+              <div class="price-display">
+                @if (item.salePrice) {
+                  <span class="original-price">${{ item.price! * item.quantity! }}</span>
+                  <span class="current-price sales">${{ item.salePrice * item.quantity! }}</span>
+                } @else {
+                  <span class="current-price">${{ (item.price ?? 0) * item.quantity! }}</span>
+                }
+              </div>
+            </div>
+          </article>
+        } @empty {
+          <div class="empty-state">
+            <div class="empty-icon">📂</div>
+            <h2>Inventory Empty</h2>
+            <p>Your tactical gear will appear here.</p>
+            <button routerLink="/products" class="btn-primary">Browse Shop</button>
+          </div>
+        }
+      </section>
+
+      @if (items().length > 0) {
+        <aside class="summary-sidebar">
+          <div class="summary-card">
+            <h2>Order Summary</h2>
+            <div class="bill-details">
+              <div class="row">
+                <span>Subtotal</span>
+                <span>${{ total() }}</span>
+              </div>
+              <div class="row">
+                <span>Shipping</span>
+                <span class="free-text">FREE</span>
+              </div>
+              <div class="row tax">
+                <span>Estimated Tax</span>
+                <span>$0.00</span>
+              </div>
+            </div>
+            <div class="total-row">
+              <span>Total</span>
+              <span class="total-amount">${{ total() }}</span>
+            </div>
+            <button class="btn-checkout">
+              Secure Checkout
+              <span class="arrow">→</span>
+            </button>
+            <div class="secure-badge">
+              <span class="lock-icon">🔒</span> Encrypted Connection
+            </div>
+          </div>
+        </aside>
+      }
+    </div>
+  </div>
+</div>

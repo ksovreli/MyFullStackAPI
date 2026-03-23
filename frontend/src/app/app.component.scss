@@ -1,0 +1,63 @@
+/* Update your app.component.scss with this */
+.loader {
+  position: fixed; // Changed from absolute to fixed
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000; // Force black background so you don't see the site yet
+  z-index: 99999;     // Ensure it's on top of everything
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Change the bars to White or your Brand Orange */
+.jimu-primary-loading:before,
+.jimu-primary-loading:after,
+.jimu-primary-loading {
+  background: #ffffff !important; // Changed from blue to white
+  width: 13.6px;
+  height: 32px;
+  -webkit-animation: loading-keys-app-loading 0.8s infinite ease-in-out;
+  animation: loading-keys-app-loading 0.8s infinite ease-in-out;
+}
+
+.jimu-primary-loading {
+  text-indent: -9999em;
+  position: relative; // Changed to relative for better centering
+  margin: 0 auto;
+  -webkit-animation-delay: 0.16s !important;
+  animation-delay: 0.16s !important;
+}
+
+.jimu-primary-loading:before,
+.jimu-primary-loading:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+
+.jimu-primary-loading:before {
+  left: -19.992px;
+}
+
+.jimu-primary-loading:after {
+  left: 19.992px;
+  -webkit-animation-delay: 0.32s !important;
+  animation-delay: 0.32s !important;
+}
+
+/* Fix the Keyframes to use White/Shadows properly */
+@keyframes loading-keys-app-loading {
+  0%, 80%, 100% {
+    opacity: .75;
+    box-shadow: 0 0 #ffffff; 
+    height: 32px;
+  }
+  40% {
+    opacity: 1;
+    box-shadow: 0 -8px #ffffff; // Glow effect
+    height: 40px;
+  }
+}
