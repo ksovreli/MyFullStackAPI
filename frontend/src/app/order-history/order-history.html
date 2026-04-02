@@ -1,0 +1,91 @@
+<div class="history-wrapper">
+    <div class="header-section">
+        <h1>Deployment History</h1>
+        <p>Track your past acquisitions and gear status.</p>
+    </div>
+
+    @if (isLoading()) {
+    <div class="loading-state">
+        <span class="glitch-text">DECRYPTING_LOGS...</span>
+    </div>
+    } @else {
+    <div class="orders-grid">
+        @for (order of orders(); track order.id) {
+        <div class="order-card">
+            <div class="card-header">
+                <div class="order-id">
+                    <span class="label">TRANS_ID:</span>
+                    <span class="value">#{{ order.id }}</span>
+                </div>
+                <div class="status-tag" [attr.data-status]="order.status">
+                    {{ order.status }}
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="info-row">
+                    <span class="icon">📅</span>
+                    <span>{{ order.orderDate | date:'mediumDate' }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="icon">📍</span>
+                    <span>{{ order.shippingAddress }}</span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="total-box">
+                    <span class="label">TOTAL_AMOUNT</span>
+                    <span class="amount">${{ order.totalPrice }}</span>
+                </div>
+                <button class="btn-details" (click)="viewDetails(order.id)">
+                    VIEW_LOGS
+                </button>
+            </div>
+        </div>
+        } @empty {
+        <div class="empty-state glass-panel">
+            <h3>No Deployments Found</h3>
+            <p>Your history is clean. Head to the shop to acquire new gear.</p>
+            <button routerLink="/products" class="btn-primary">Go to Shop</button>
+        </div>
+        }
+    </div>
+    }
+
+    @if (selectedOrder()) {
+    <div class="terminal-overlay" (click)="closeLogs()">
+        <div class="terminal-modal" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <div class="title-group">
+                    <span class="blink-dot"></span>
+                    <h2>DECRYPTION_LOG: #{{ selectedOrder()?.id }}</h2>
+                </div>
+                <button class="close-btn" (click)="closeLogs()">CLOSE_SESSION [X]</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="log-entry">
+                    <span class="timestamp">[{{ selectedOrder()?.orderDate | date:'HH:mm:ss' }}]</span>
+                    <span class="message">INITIALIZING SECURE DATA RETRIEVAL...</span>
+                </div>
+                <div class="log-entry success">
+                    <span class="timestamp">[{{ selectedOrder()?.orderDate | date:'HH:mm:ss' }}]</span>
+                    <span class="message">DESTINATION_LINK: {{ selectedOrder()?.shippingAddress }}</span>
+                </div>
+                <div class="log-entry info">
+                    <span class="timestamp">[{{ selectedOrder()?.orderDate | date:'HH:mm:ss' }}]</span>
+                    <span class="message">DEPLOYMENT_STATUS: {{ selectedOrder()?.status }}</span>
+                </div>
+                <div class="log-entry gold">
+                    <span class="timestamp">[{{ selectedOrder()?.orderDate | date:'HH:mm:ss' }}]</span>
+                    <span class="message">CREDITS_EXTRACTED: ${{ selectedOrder()?.totalPrice }}</span>
+                </div>
+                <div class="log-footer">
+                    <p>--- END OF ENCRYPTED SESSION ---</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

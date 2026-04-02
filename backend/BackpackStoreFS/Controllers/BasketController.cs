@@ -1,5 +1,6 @@
 ﻿using BackpackStoreFS.Models.DTOs;
 using BackpackStoreFS.Models.Entities;
+using BackpackStoreFS.ServiceContracts;
 using BackpackStoreFS.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace BackpackStoreFS.Controllers
     public class BasketController(IBasketService basketService) : ControllerBase
     {
         [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<BasketItemReadDto>>> GetBasket(string userId)
+        public async Task<ActionResult<IEnumerable<BasketItemReadDto>>> GetBasket(int userId)
         {
             var basket = await basketService.GetUserBasketAsync(userId);
             return Ok(basket);
@@ -25,28 +26,18 @@ namespace BackpackStoreFS.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateQty(int id, [FromQuery] int quantity)
+        [HttpPut("{backpackId}/{userId}")]
+        public async Task<IActionResult> UpdateQty(int backpackId, int userId, [FromQuery] int quantity)
         {
-            await basketService.UpdateQuantityAsync(id, quantity);
+            await basketService.UpdateQuantityAsync(userId, backpackId, quantity);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
+        [HttpDelete("{backpackId}/{userId}")]
+        public async Task<IActionResult> Remove(int backpackId, int userId)
         {
-            await basketService.RemoveItemAsync(id);
+            await basketService.RemoveItemAsync(userId, backpackId);
             return NoContent();
-        }
-
-        private BasketItem FromBasketDto(BasketItemCreateDto dto)
-        {
-            return new BasketItem
-            {
-                UserId = dto.UserId,
-                BackpackId = dto.BackpackId,
-                Quantity = dto.Quantity
-            };
         }
     }
 }

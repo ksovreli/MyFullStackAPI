@@ -1,12 +1,8 @@
-﻿using BackpackStoreFS.Models.Entities;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BackpackStoreFS.Models.DTOs
+﻿namespace BackpackStoreFS.Models.DTOs
 {
     public class BasketItemCreateDto
     {
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; }
         public int BackpackId { get; set; }
         public int Quantity { get; set; }
     }

@@ -34,11 +34,6 @@ namespace BackpackStoreFS.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("image");
-
                     b.Property<bool>("IsNew")
                         .HasColumnType("bit");
 
@@ -55,10 +50,6 @@ namespace BackpackStoreFS.Migrations
                         .HasColumnType("int")
                         .HasColumnName("quantity");
 
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(2,1)")
-                        .HasColumnName("rating");
-
                     b.Property<decimal?>("SalePrice")
                         .HasColumnType("decimal(5,2)")
                         .HasColumnName("sale_price");
@@ -74,173 +65,257 @@ namespace BackpackStoreFS.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            Image = "/images/APEX_Commuter.png",
                             IsNew = false,
                             Name = "APEX COMMUTER",
                             Price = 90m,
                             Quantity = 10,
-                            Rating = 4.5m,
                             SalePrice = 65m
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            Image = "/images/APEX_Heritage.png",
                             IsNew = true,
                             Name = "APEX HERITAGE",
                             Price = 75m,
-                            Quantity = 12,
-                            Rating = 4.1m
+                            Quantity = 12
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
-                            Image = "/images/APEX_Pulse.png",
                             IsNew = true,
                             Name = "APEX PULSE",
                             Price = 80m,
-                            Quantity = 8,
-                            Rating = 4.8m
+                            Quantity = 8
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 1,
-                            Image = "/images/APEX_Stealth.png",
                             IsNew = false,
                             Name = "APEX STEALTH",
                             Price = 110m,
                             Quantity = 6,
-                            Rating = 4.2m,
                             SalePrice = 95m
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 1,
-                            Image = "/images/APEX_Skyline.png",
                             IsNew = false,
                             Name = "APEX SKYLINE",
                             Price = 95m,
-                            Quantity = 9,
-                            Rating = 4.8m
+                            Quantity = 9
                         },
                         new
                         {
                             Id = 6,
                             CategoryId = 1,
-                            Image = "/images/APEX_Global.png",
                             IsNew = false,
                             Name = "APEX GLOBAL",
                             Price = 120m,
                             Quantity = 5,
-                            Rating = 4.5m,
                             SalePrice = 85m
                         },
                         new
                         {
                             Id = 7,
                             CategoryId = 2,
-                            Image = "/images/APEX_Crossover.png",
                             IsNew = false,
                             Name = "APEX CROSSOVER",
                             Price = 95m,
-                            Quantity = 7,
-                            Rating = 4.0m
+                            Quantity = 7
                         },
                         new
                         {
                             Id = 8,
                             CategoryId = 2,
-                            Image = "/images/APEX_Executive.png",
                             IsNew = false,
                             Name = "APEX EXECUTIVE",
                             Price = 150m,
                             Quantity = 4,
-                            Rating = 4.9m,
                             SalePrice = 115m
                         },
                         new
                         {
                             Id = 9,
                             CategoryId = 2,
-                            Image = "/images/APEX_Ignite.png",
                             IsNew = true,
                             Name = "APEX IGNITE",
                             Price = 85m,
-                            Quantity = 11,
-                            Rating = 4.8m
+                            Quantity = 11
                         },
                         new
                         {
                             Id = 10,
                             CategoryId = 2,
-                            Image = "/images/APEX_Transformer.png",
                             IsNew = false,
                             Name = "APEX TRANSFORMER",
                             Price = 110m,
                             Quantity = 6,
-                            Rating = 4.7m,
                             SalePrice = 89m
                         },
                         new
                         {
                             Id = 11,
                             CategoryId = 2,
-                            Image = "/images/APEX_Legacy.png",
                             IsNew = false,
                             Name = "APEX LEGACY",
                             Price = 85m,
-                            Quantity = 10,
-                            Rating = 3.9m
+                            Quantity = 10
                         },
                         new
                         {
                             Id = 12,
                             CategoryId = 3,
-                            Image = "/images/APEX_Odyssey.png",
                             IsNew = false,
                             Name = "APEX ODYSSEY",
                             Price = 160m,
                             Quantity = 3,
-                            Rating = 5.0m,
                             SalePrice = 130m
                         },
                         new
                         {
                             Id = 13,
                             CategoryId = 3,
-                            Image = "/images/APEX_Voyager.png",
                             IsNew = true,
                             Name = "APEX VOYAGER",
                             Price = 145m,
-                            Quantity = 5,
-                            Rating = 5.0m
+                            Quantity = 5
                         },
                         new
                         {
                             Id = 14,
                             CategoryId = 3,
-                            Image = "/images/APEX_Summit.png",
                             IsNew = false,
                             Name = "APEX SUMMIT",
                             Price = 130m,
-                            Quantity = 4,
-                            Rating = 4.7m
+                            Quantity = 4
                         },
                         new
                         {
                             Id = 15,
                             CategoryId = 3,
-                            Image = "/images/APEX_Cyber.png",
                             IsNew = false,
                             Name = "APEX CYBER",
                             Price = 180m,
                             Quantity = 2,
-                            Rating = 4.6m,
                             SalePrice = 149m
+                        });
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.BackpackImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BackpackId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BackpackId");
+
+                    b.ToTable("BackpackImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BackpackId = 1,
+                            Url = "/images/APEX_Commuter.png"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BackpackId = 2,
+                            Url = "/images/APEX_Heritage.png"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BackpackId = 3,
+                            Url = "/images/APEX_Pulse.png"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BackpackId = 4,
+                            Url = "/images/APEX_Stealth.png"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BackpackId = 5,
+                            Url = "/images/APEX_Skyline.png"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BackpackId = 6,
+                            Url = "/images/APEX_Global.png"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BackpackId = 7,
+                            Url = "/images/APEX_Crossover.png"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BackpackId = 8,
+                            Url = "/images/APEX_Executive.png"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BackpackId = 9,
+                            Url = "/images/APEX_Ignite.png"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BackpackId = 10,
+                            Url = "/images/APEX_Transformer.png"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BackpackId = 11,
+                            Url = "/images/APEX_Legacy.png"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BackpackId = 12,
+                            Url = "/images/APEX_Odyssey.png"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BackpackId = 13,
+                            Url = "/images/APEX_Voyager.png"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            BackpackId = 14,
+                            Url = "/images/APEX_Summit.png"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            BackpackId = 15,
+                            Url = "/images/APEX_Cyber.png"
                         });
                 });
 
@@ -259,9 +334,8 @@ namespace BackpackStoreFS.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -307,6 +381,154 @@ namespace BackpackStoreFS.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TrackingNumber")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BackpackId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PriceAtPurchase")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BackpackId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.PasswordResetCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email");
+
+                    b.ToTable("PasswordResetCodes");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BackpackId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BackpackId");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BackpackId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BackpackId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("BackpackStoreFS.Models.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -327,6 +549,7 @@ namespace BackpackStoreFS.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -394,14 +617,18 @@ namespace BackpackStoreFS.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BackpackId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("backpack_id");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BackpackId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("WishlistItems");
                 });
@@ -550,6 +777,17 @@ namespace BackpackStoreFS.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.BackpackImage", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.Backpack", "Backpack")
+                        .WithMany("Images")
+                        .HasForeignKey("BackpackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Backpack");
+                });
+
             modelBuilder.Entity("BackpackStoreFS.Models.Entities.BasketItem", b =>
                 {
                     b.HasOne("BackpackStoreFS.Models.Entities.Backpack", "Backpack")
@@ -559,6 +797,97 @@ namespace BackpackStoreFS.Migrations
                         .IsRequired();
 
                     b.Navigation("Backpack");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Order", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.OrderItem", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.Backpack", "Backpack")
+                        .WithMany()
+                        .HasForeignKey("BackpackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackpackStoreFS.Models.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Backpack");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.PasswordResetCode", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Email")
+                        .HasPrincipalKey("Email")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Rating", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.Backpack", "Backpack")
+                        .WithMany("Ratings")
+                        .HasForeignKey("BackpackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Backpack");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Review", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.Backpack", "Backpack")
+                        .WithMany("Reviews")
+                        .HasForeignKey("BackpackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackpackStoreFS.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Backpack");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.WishlistItem", b =>
+                {
+                    b.HasOne("BackpackStoreFS.Models.Entities.Backpack", "Backpack")
+                        .WithMany()
+                        .HasForeignKey("BackpackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackpackStoreFS.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Backpack");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -612,9 +941,23 @@ namespace BackpackStoreFS.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Backpack", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("Reviews");
+                });
+
             modelBuilder.Entity("BackpackStoreFS.Models.Entities.Category", b =>
                 {
                     b.Navigation("Backpacks");
+                });
+
+            modelBuilder.Entity("BackpackStoreFS.Models.Entities.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

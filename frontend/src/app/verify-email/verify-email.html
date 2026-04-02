@@ -1,0 +1,38 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Coordinate Verification</h2>
+      <p>Finalizing your operative profile</p>
+    </div>
+
+    <div class="status-box">
+      @if (status() === 'loading') {
+        <div class="loader">
+          <div class="spinner"></div>
+          <p>DECRYPTING_ACTIVATION_TOKEN...</p>
+        </div>
+      }
+
+      @if (status() === 'success') {
+        <div class="result success">
+          <div class="icon-hex">✓</div>
+          <h3>ACCESS_GRANTED</h3>
+          <p>Email coordinates verified. Redirecting to login terminal...</p>
+        </div>
+      }
+
+      @if (status() === 'error') {
+        <div class="result error">
+          <div class="icon-hex">!</div>
+          <h3>PROTOCOL_ERROR</h3>
+          <p>Activation link is invalid, expired, or has already been used.</p>
+          <button class="retry-btn" routerLink="/login">Return to Terminal</button>
+        </div>
+      }
+    </div>
+
+    <div class="auth-footer">
+      <span class="sys-ref">SYS_REF: {{ verificationId }}</span>
+    </div>
+  </div>
+</div>

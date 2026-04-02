@@ -11,9 +11,16 @@ namespace BackpackStoreFS.Models.Entities
 
         [Required]
         [Column("user_id")]
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User? User { get; set; }
 
         [Required]
+        [Column("backpack_id")]
         public int BackpackId { get; set; }
+
+        [ForeignKey("BackpackId")]
+        public Backpack? Backpack { get; set; }
     }
 }

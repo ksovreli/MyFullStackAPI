@@ -1,93 +1,108 @@
 <div class="auth-wrapper">
   <div class="auth-card">
-    <div class="auth-header">
-      <h2>Join the peak</h2>
-      <p>Create your apex account</p>
-    </div>
+    
+    @if (!registrationComplete()) {
+      <div class="auth-header">
+        <h2>Join the peak</h2>
+        <p>Create your apex account</p>
+      </div>
 
-    @if (serverErrors.length > 0) {
-      <div class="server-error-box">
-        @for (error of serverErrors; track error) {
-          <div class="error-item">
-            <span class="dot">!</span> {{ error }}
+      @if (serverErrors().length > 0) {
+        <div class="server-error-box">
+          @for (error of serverErrors(); track error) {
+            <div class="error-item">
+              <span class="dot">!</span> {{ error }}
+            </div>
+          }
+        </div>
+      }
+
+      <form (ngSubmit)="onRegister()" #regForm="ngForm" novalidate>
+        
+        <div class="input-group">
+          <label [style.color]="username.invalid && username.touched ? '#ff4d4d' : ''">Username</label>
+          <input 
+            type="text" 
+            name="username" 
+            autocomplete="username"
+            [(ngModel)]="regData.username" 
+            #username="ngModel"
+            placeholder="ApexRunner" 
+            required 
+            minlength="3">
+          @if (username.invalid && username.touched) {
+            <span class="error-msg">Username is required (min 3 chars)</span>
+          }
+        </div>
+
+        <div class="input-group">
+          <label [style.color]="email.invalid && email.touched ? '#ff4d4d' : ''">Email Address</label>
+          <input 
+            type="email" 
+            name="email" 
+            autocomplete="email"
+            [(ngModel)]="regData.email" 
+            #email="ngModel"
+            placeholder="name@apex.com" 
+            required 
+            email>
+          @if (email.invalid && email.touched) {
+            <span class="error-msg">Enter a valid email address</span>
+          }
+        </div>
+
+        <div class="input-group">
+          <label [style.color]="password.invalid && password.touched ? '#ff4d4d' : ''">Password</label>
+          <input 
+            type="password" 
+            name="password" 
+            autocomplete="new-password"
+            [(ngModel)]="regData.password" 
+            #password="ngModel"
+            placeholder="••••••••" 
+            required
+            minlength="6">
+
+          <div class="password-requirements-grid">
+            <div class="req-item" [class.met]="regData.password.length >= 6">
+              <span class="indicator"></span> 6+ Chars
+            </div>
+            <div class="req-item" [class.met]="hasUpper(regData.password)">
+              <span class="indicator"></span> Uppercase
+            </div>
+            <div class="req-item" [class.met]="hasNumber(regData.password)">
+              <span class="indicator"></span> Number
+            </div>
+            <div class="req-item" [class.met]="hasSymbol(regData.password)">
+              <span class="indicator"></span> Special (!@#)
+            </div>
           </div>
-        }
+
+          @if (password.invalid && password.touched) {
+            <span class="error-msg">Password must be at least 6 characters</span>
+          }
+        </div>
+
+        <button type="submit" class="login-btn" [disabled]="!regForm.valid">
+          Create Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Already a member? <a routerLink="/login">Login here</a></p>
+      </div>
+    } 
+    
+    @else {
+      <div class="registration-success">
+        <div class="icon-hex">✉</div>
+        <h3>INBOX_DISPATCHED</h3>
+        <p>Activation link sent to:</p>
+        <div class="target-email">{{ regData.email }}</div>
+        <p class="hint">Check your inbox to verify your coordinates and gain access.</p>
+        <button class="login-btn" routerLink="/login" style="margin-top: 20px;">Return to Login</button>
       </div>
     }
 
-    <form (ngSubmit)="onRegister()" #regForm="ngForm" novalidate>
-      
-      <div class="input-group">
-        <label [style.color]="username.invalid && username.touched ? '#ff4d4d' : ''">Username</label>
-        <input 
-          type="text" 
-          name="username" 
-          autocomplete="username"
-          [(ngModel)]="regData.username" 
-          #username="ngModel"
-          placeholder="ApexRunner" 
-          required 
-          minlength="3">
-        @if (username.invalid && username.touched) {
-          <span class="error-msg">Username is required (min 3 chars)</span>
-        }
-      </div>
-
-      <div class="input-group">
-        <label [style.color]="email.invalid && email.touched ? '#ff4d4d' : ''">Email Address</label>
-        <input 
-          type="email" 
-          name="email" 
-          autocomplete="email"
-          [(ngModel)]="regData.email" 
-          #email="ngModel"
-          placeholder="name@apex.com" 
-          required 
-          email>
-        @if (email.invalid && email.touched) {
-          <span class="error-msg">Enter a valid email address</span>
-        }
-      </div>
-
-      <div class="input-group">
-        <label [style.color]="password.invalid && password.touched ? '#ff4d4d' : ''">Password</label>
-        <input 
-          type="password" 
-          name="password" 
-          autocomplete="new-password"
-          [(ngModel)]="regData.password" 
-          #password="ngModel"
-          placeholder="••••••••" 
-          required
-          minlength="6">
-
-        <div class="password-requirements-grid">
-          <div class="req-item" [class.met]="regData.password.length >= 6">
-            <span class="indicator"></span> 6+ Chars
-          </div>
-          <div class="req-item" [class.met]="hasUpper(regData.password)">
-            <span class="indicator"></span> Uppercase
-          </div>
-          <div class="req-item" [class.met]="hasNumber(regData.password)">
-            <span class="indicator"></span> Number
-          </div>
-          <div class="req-item" [class.met]="hasSymbol(regData.password)">
-            <span class="indicator"></span> Special (!@#)
-          </div>
-        </div>
-
-        @if (password.invalid && password.touched) {
-          <span class="error-msg">Password must be at least 6 characters</span>
-        }
-      </div>
-
-      <button type="submit" class="login-btn" [disabled]="!regForm.valid">
-        Create Account
-      </button>
-    </form>
-
-    <div class="auth-footer">
-      <p>Already a member? <a routerLink="/login">Login here</a></p>
-    </div>
   </div>
 </div>

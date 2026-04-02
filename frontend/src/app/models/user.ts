@@ -2,6 +2,6 @@ export class User {
   id?: number
   username?: string
   email?: string
-  passwordHash?: string
+  role?: string
   token?: string
 }

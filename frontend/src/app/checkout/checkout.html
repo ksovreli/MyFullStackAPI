@@ -1,0 +1,75 @@
+<div class="checkout-wrapper">
+    <main class="checkout-main">
+        <div class="section-header">
+            <h1>Checkout</h1>
+            <p>Deploying gear to your coordinates.</p>
+        </div>
+
+        <div class="glass-panel form-section">
+            <h4>Shipping Information</h4>
+            <form (ngSubmit)="processCheckout()" #checkoutForm="ngForm">
+                <div class="input-group">
+                    <label>Street Address</label>
+                    <input type="text" name="address" [(ngModel)]="shippingInfo.address"
+                        placeholder="Enter your street address" required>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" name="city" [(ngModel)]="shippingInfo.city" placeholder="Tbilisi" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="text" name="phone" [(ngModel)]="shippingInfo.phone" #phone="ngModel"
+                            placeholder="+995 ..." required>
+                        @if (phone.invalid && phone.touched) {
+                        <small class="error-text">Deployment coordinates required.</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn-secondary" (click)="goBack()">
+                        Return to Cart
+                    </button>
+                    <button type="submit" class="btn-primary" [disabled]="!checkoutForm.valid">
+                        Finalize Order
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <aside class="order-summary">
+        <div class="glass-panel">
+            <h4>Order Summary</h4>
+            <div class="items-list">
+                @for (item of cartItems(); track item.backpackId) {
+                <div class="summary-item">
+                    <div class="item-info">
+                        <span class="item-name">{{ item.name }}</span>
+                        <span class="item-qty">x{{ item.quantity }}</span>
+                    </div>
+                    <span class="item-price">${{ item.price * item.quantity }}</span>
+                </div>
+                }
+            </div>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span>${{ total() }}</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping</span>
+                    <span class="free">FREE</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Amount</span>
+                    <span class="gold-text">${{ total() }}</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>

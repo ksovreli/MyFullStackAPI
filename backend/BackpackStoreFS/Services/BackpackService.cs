@@ -1,36 +1,33 @@
-﻿using BackpackStoreFS.Data;
+﻿using BackpackStoreFS.Constants;
+using BackpackStoreFS.Data;
 using BackpackStoreFS.Models.DTOs;
 using BackpackStoreFS.Models.Entities;
+using BackpackStoreFS.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackpackStoreFS.Services
 {
-    public interface IBackpackService
-    {
-        Task<IEnumerable<BackpackReadDto>> GetAllAsync();
-        Task<BackpackReadDto?> GetByIdAsync(int id);
-        Task<BackpackReadDto> CreateAsync(BackpackCreateDto dto);
-        Task<bool> UpdateAsync(int id, BackpackCreateDto dto);
-        Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<BackpackReadDto>> GetFilteredAsync(string? category, string? sortBy);
-    }
-
     public class BackpackService(BackpackContext context) : IBackpackService
     {
-        private readonly BackpackContext _context = context;
-
         public async Task<IEnumerable<BackpackReadDto>> GetAllAsync()
         {
-            return await _context.Backpacks
+            var backpacks = await context.Backpacks
                 .Include(b => b.Category)
-                .Select(b => MapToReadDto(b))
+                .Include(b => b.Reviews)
+                .Include(b => b.Images)
+                .Include(b => b.Ratings)
                 .ToListAsync();
+
+            return backpacks.Select(b => MapToReadDto(b));
         }
 
         public async Task<BackpackReadDto?> GetByIdAsync(int id)
         {
-            var backpack = await _context.Backpacks
+            var backpack = await context.Backpacks
                 .Include(b => b.Category)
+                .Include(b => b.Reviews)
+                .Include(b => b.Images)
+                .Include(b => b.Ratings)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             return backpack != null ? MapToReadDto(backpack) : null;
@@ -38,59 +35,60 @@ namespace BackpackStoreFS.Services
 
         public async Task<BackpackReadDto> CreateAsync(BackpackCreateDto dto)
         {
-            var backpack = new Backpack
-            {
-                Name = dto.Name,
-                Image = dto.ImageUrl,
-                Price = dto.Price,
-                Quantity = dto.Quantity,
-                SalePrice = dto.SalePrice,
-                CategoryId = dto.CategoryId,
-                IsNew = dto.IsNew,
-                Rating = dto.Rating
-            };
+            var backpack = new Backpack(dto);
 
-            _context.Backpacks.Add(backpack);
-            await _context.SaveChangesAsync();
+            context.Backpacks.Add(backpack);
+            await context.SaveChangesAsync();
 
             return MapToReadDto(backpack);
         }
 
         public async Task<bool> UpdateAsync(int id, BackpackCreateDto dto)
         {
-            var backpack = await _context.Backpacks.FindAsync(id);
+            var backpack = await context.Backpacks
+                .Include(b => b.Images)
+                .Include(b => b.Ratings)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
             if (backpack == null)
             {
                 return false;
             }
 
             backpack.Name = dto.Name;
-            backpack.Image = dto.ImageUrl;
             backpack.Price = dto.Price;
             backpack.Quantity = dto.Quantity;
             backpack.SalePrice = dto.SalePrice;
             backpack.CategoryId = dto.CategoryId;
             backpack.IsNew = dto.IsNew;
-            backpack.Rating = dto.Rating;
 
-            await _context.SaveChangesAsync();
+            if (backpack.Images.FirstOrDefault()?.Url != dto.ImageUrl)
+            {
+                backpack.Images.Clear();
+                backpack.Images.Add(new BackpackImage { Url = dto.ImageUrl });
+            }
+
+            await context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var backpack = await _context.Backpacks.FindAsync(id);
+            var backpack = await context.Backpacks.FindAsync(id);
             if (backpack == null) return false;
 
-            _context.Backpacks.Remove(backpack);
-            await _context.SaveChangesAsync();
+            context.Backpacks.Remove(backpack);
+            await context.SaveChangesAsync();
             return true;
         }
 
         public async Task<IEnumerable<BackpackReadDto>> GetFilteredAsync(string? category, string? sortBy)
         {
-            var query = _context.Backpacks
+            var query = context.Backpacks
                 .Include(p => p.Category)
+                .Include(p => p.Reviews)
+                .Include(p => p.Images)
+                .Include(p => p.Ratings)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(category) && category != "All Collections")
@@ -109,37 +107,56 @@ namespace BackpackStoreFS.Services
             {
                 "Price: Low to High" => query.OrderBy(p => p.SalePrice ?? p.Price),
                 "Price: High to Low" => query.OrderByDescending(p => p.SalePrice ?? p.Price),
-                "Top Rated" => query.OrderByDescending(p => p.Rating),
+
+                "Top Rated" => query.OrderByDescending(p => p.Ratings.Any() ? p.Ratings.Average(r => (decimal)r.Value) : 0),
+
                 "Newest" => query.OrderByDescending(p => p.IsNew),
-                "Recommended" => query.OrderByDescending(p => p.IsNew).ThenByDescending(p => p.Rating),
+
+                "Recommended" => query.OrderByDescending(p => p.IsNew)
+                        .ThenByDescending(p => p.Ratings.Any() ? p.Ratings.Average(r => (decimal)r.Value) : 0),
                 _ => query.OrderBy(p => p.Id)
             };
 
-            // 4. Map to DTO
+            var results = await query.ToListAsync();
+
             return await query.Select(p => new BackpackReadDto
             {
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,
                 SalePrice = p.SalePrice,
-                Rating = p.Rating,
                 IsNew = p.IsNew,
-                CategoryName = p.Category != null ? p.Category.Name : "General",
-                Image = p.Image
+
+                Image = p.Images.Select(img => img.Url).FirstOrDefault() ?? "placeholder.png",
+
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category != null ? p.Category.Name : BackpackConstants.Reviews.DefaultCategory,
+
+                Rating = p.Ratings.Any()
+                         ? (decimal)Math.Round(p.Ratings.Average(r => (decimal)r.Value), 1)
+                         : 0,
+
+                ReviewCount = p.Reviews.Count
+
             }).ToListAsync();
         }
         private static BackpackReadDto MapToReadDto(Backpack b) => new BackpackReadDto
         {
             Id = b.Id,
             Name = b.Name,
-            Image = b.Image,
+            Image = b.Images.FirstOrDefault()?.Url ?? "placeholder.png",
             Price = b.Price,
             Quantity = b.Quantity,
             SalePrice = b.SalePrice,
             IsNew = b.IsNew,
-            Rating = b.Rating,
             CategoryId = b.CategoryId,
-            CategoryName = b.Category?.Name ?? "No Category"
+            CategoryName = b.Category?.Name ?? BackpackConstants.Reviews.NoComment,
+
+            Rating = b.Ratings != null && b.Ratings.Any()
+                             ? (decimal)Math.Round(b.Ratings.Average(r => r.Value), 1)
+                             : 0,
+
+            ReviewCount = b.Reviews?.Count ?? 0
         };
     }
 }

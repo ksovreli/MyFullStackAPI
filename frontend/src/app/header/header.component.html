@@ -28,10 +28,28 @@
             </button>
             <div class="dropdown-menu">
                 @if (isLoggedIn()) {
-                    <a (click)="logout()">Logout</a>
+                <a routerLink="/order-history">
+                    <i class="fa-solid fa-box-open"></i> MY_ORDERS
+                </a>
+
+                @if (isAdmin()) {
+                <a routerLink="/admin" class="admin-link">
+                    <i class="fa-solid fa-terminal"></i> ADMIN_PANEL
+                </a>
+                }
+
+                <hr class="dropdown-divider">
+                <a (click)="logout()">
+                    <i class="fa-solid fa-power-off"></i> LOGOUT
+                </a>
+
                 } @else {
-                    <a routerLink="/login">Login</a>
-                    <a routerLink="/register">Register</a>
+                <a routerLink="/login">
+                    <i class="fa-solid fa-right-to-bracket"></i> LOGIN
+                </a>
+                <a routerLink="/register">
+                    <i class="fa-solid fa-user-plus"></i> REGISTER
+                </a>
                 }
             </div>
         </div>
@@ -39,14 +57,14 @@
         <button class="action-btn wishlist-btn" routerLink="/wishlist">
             <span class="icon"><i class="fa-solid fa-heart"></i></span>
             @if (wishlistCount() > 0) {
-                <span class="badge">{{ wishlistCount() }}</span>
+            <span class="badge">{{ wishlistCount() }}</span>
             }
         </button>
 
         <button class="action-btn cart-btn" routerLink="/cart">
             <span class="icon"><i class="fa-solid fa-cart-arrow-down"></i></span>
             @if (cartCount() > 0) {
-                <span class="badge">{{ cartCount() }}</span>
+            <span class="badge">{{ cartCount() }}</span>
             }
         </button>
 

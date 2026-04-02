@@ -1,5 +1,6 @@
 ﻿using BackpackStoreFS.Models.DTOs;
 using BackpackStoreFS.Models.Entities;
+using BackpackStoreFS.ServiceContracts;
 using BackpackStoreFS.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,21 +72,6 @@ namespace BackpackStoreFS.Controllers
         {
             var results = await backpackService.GetFilteredAsync(category, sortBy);
             return Ok(results);
-        }
-
-        private Backpack FromDtoBackpack(BackpackCreateDto dto)
-        {
-            return new Backpack()
-            {
-                Name = dto.Name,
-                Image = dto.ImageUrl,
-                Price = dto.Price,
-                Quantity = dto.Quantity,
-                SalePrice = dto.SalePrice,
-                CategoryId = dto.CategoryId,
-                IsNew = dto.IsNew,
-                Rating = dto.Rating
-            };
         }
     }
 }

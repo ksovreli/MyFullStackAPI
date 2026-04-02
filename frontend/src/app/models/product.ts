@@ -9,4 +9,5 @@ export class Product {
   categoryName?: string
   categoryId?: number
   isNew?: boolean = false
+  images: { url: string }[] = []
 }

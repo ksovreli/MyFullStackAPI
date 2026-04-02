@@ -3,28 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { AuthService } from './auth-service';
 import Swal from 'sweetalert2';
+import { BasketItem } from '../models/basketitem';
+import { AlertService } from './alert-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  
+
   private http = inject(HttpClient)
   private auth = inject(AuthService)
   private apiUrl = 'https://localhost:7119/api/Basket'
+  private alertService = inject(AlertService)
+  public router = inject(Router)
 
-  items = signal<Product[]>([])
+  items = signal<BasketItem[]>([])
   private isRefreshing = false
 
   constructor() {
     effect(() => {
-      this.refreshCart()
+      const user = this.auth.currentUser()
+      if (user) {
+        this.refreshCart()
+      }
+      else {
+        this.items.set([])
+      }
     })
   }
 
   refreshCart() {
     const user = this.auth.currentUser()
-
     if (!user) {
       this.items.set([])
       return
@@ -34,7 +44,7 @@ export class CartService {
 
     this.isRefreshing = true
 
-    this.http.get<Product[]>(`${this.apiUrl}/${user.id}`)
+    this.http.get<BasketItem[]>(`${this.apiUrl}/${user.id}`)
       .subscribe({
         next: (data) => {
           this.items.set(data)
@@ -49,58 +59,56 @@ export class CartService {
 
   addToCart(product: Product) {
     const user = this.auth.currentUser()
-    if (!user) {
-      this.showToast('Please login first', 'info')
-      return
-    }
 
+    if (!user?.id) {
+      this.alertService.confirm('Login Required', 'You must be logged in to add items to your cart. Do you want to login now?')
+      .then(result => {
+        if (result.isConfirmed) this.router.navigateByUrl('/login')
+      })
+      return;
+    }
     const dto = {
-      userId: user.id?.toString(),
+      userId: user.id,
       backpackId: product.id,
       quantity: 1
     }
 
-    this.http.post(`${this.apiUrl}/AddToBasket`, dto)
-      .subscribe({
-        next: () => {
-          this.refreshCart()
-          this.showToast('Added to cart!', 'success')
-        },
-        error: (err) => {
-          console.error('Add to cart failed', err)
-          this.showToast('Failed to add item', 'info')
-        }
-      })
+    this.http.post(`${this.apiUrl}/AddToBasket`, dto).subscribe({
+      next: () => {
+        this.refreshCart()
+        this.alertService.success(`${product.name?.toUpperCase()} added to inventory.`)
+      },
+      error: (err) => {
+        console.error('Add to cart failed', err)
+        this.alertService.error('DATABASE_SYNC_FAILED: Item not added.')
+      }
+    })
   }
 
-  updateQuantity(basketItemId: number, newQuantity: number) {
-    if (newQuantity < 1) {
+  updateQuantity(backpackId: number, newQuantity: number) {
+    const user = this.auth.currentUser()
+    if (!user) {
       return
     }
-    this.http.put(`${this.apiUrl}/${basketItemId}?quantity=${newQuantity}`, {})
-      .subscribe(() => this.refreshCart())
+
+    const url = `${this.apiUrl}/${backpackId}/${user.id}?quantity=${newQuantity}`
+
+    this.http.put(url, {}).subscribe({
+      next: () => this.refreshCart(),
+      error: (err) => console.error(err)
+    })
   }
 
-  removeItem(basketItemId: number) {
-    this.http.delete(`${this.apiUrl}/${basketItemId}`)
-      .subscribe({
-        next: () => {
-          this.refreshCart()
-          this.showToast('Removed from cart', 'info')
-        }
-      })
-  }
+  removeItem(backpackId: number) {
+    const user = this.auth.currentUser()
+    if (!user) {
+      return
+    }
 
-  private showToast(title: string, icon: 'success' | 'info') {
-    Swal.fire({
-      title: title,
-      icon: icon,
-      background: '#121212',
-      color: '#fff',
-      timer: 1500,
-      showConfirmButton: false,
-      toast: true,
-      position: 'top-end'
+    const url = `${this.apiUrl}/${backpackId}/${user.id}`
+    this.http.delete(url).subscribe({
+      next: () => this.refreshCart(),
+      error: (err) => console.error(err)
     })
   }
 }

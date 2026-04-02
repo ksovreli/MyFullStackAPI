@@ -17,8 +17,7 @@
 
       <div class="image-wrapper" [routerLink]="['/product', item.id]">
 
-        <img [src]="item.image" [alt]="item.name" loading="lazy" />
-
+        <img [src]="item.images[0]?.url || 'assets/images/placeholder.png'" [alt]="item.name" loading="lazy" />
         <button class="remove-btn" (click)="wishlistService.toggleWishlist(item); $event.stopPropagation()"
           title="Remove from wishlist">
           <i class="fa-solid fa-xmark"></i>

@@ -1,0 +1,91 @@
+$gold-primary: #d4af37;
+$bg-card: #0d0d12;
+$text-muted: #a29c9c;
+$success-green: #00ff88;
+$error-red: #ff4444;
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #050505;
+  padding: 20px;
+
+  .auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: $bg-card;
+    border: 1px solid #1a1a1a;
+    border-top: 4px solid $gold-primary;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .auth-header h2 {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+
+  .status-box {
+    margin: 40px 0;
+    min-height: 150px;
+
+    .loader {
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba($gold-primary, 0.1);
+        border-top: 3px solid $gold-primary;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        animation: spin 1s linear infinite;
+      }
+      p { color: $gold-primary; font-family: monospace; font-size: 12px; }
+    }
+
+    .result {
+      h3 { letter-spacing: 3px; margin: 15px 0 10px; }
+      p { color: $text-muted; font-size: 14px; }
+
+      &.success h3 { color: $success-green; }
+      &.error h3 { color: $error-red; }
+
+      .icon-hex {
+        width: 50px;
+        height: 50px;
+        background: #14141a;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        border: 1px solid #222;
+      }
+    }
+  }
+
+  .retry-btn {
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid $text-muted;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    &:hover { border-color: white; }
+  }
+
+  .sys-ref {
+    font-size: 10px;
+    color: #333;
+    font-family: monospace;
+  }
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }

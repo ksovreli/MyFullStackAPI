@@ -1,40 +1,36 @@
 ﻿using BackpackStoreFS.Data;
 using BackpackStoreFS.Models.DTOs;
 using BackpackStoreFS.Models.Entities;
+using BackpackStoreFS.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackpackStoreFS.Services
 {
-    public interface IWishlistService
+    public class WishlistService(BackpackContext context) : IWishlistService
     {
-        Task<IEnumerable<Backpack>> GetWishlistAsync(string userId);
-        Task<string> ToggleWishlistAsync(WishlistDto dto);
-    }
-
-    public class WishlistService(BackpackContext _context) : IWishlistService
-    {
-        public async Task<IEnumerable<Backpack>> GetWishlistAsync(string userId)
+        public async Task<IEnumerable<Backpack>> GetWishlistAsync(int userId)
         {
-            var backpackIds = await _context.WishlistItems
+            var backpackIds = await context.WishlistItems
                 .Where(w => w.UserId == userId)
                 .Select(w => w.BackpackId)
                 .ToListAsync();
 
-            return await _context.Backpacks
+            return await context.Backpacks
                 .Include(b => b.Category)
+                .Include(b => b.Images)
                 .Where(b => backpackIds.Contains(b.Id))
                 .ToListAsync();
         }
 
         public async Task<string> ToggleWishlistAsync(WishlistDto dto)
         {
-            var existing = await _context.WishlistItems
+            var existing = await context.WishlistItems
                 .FirstOrDefaultAsync(w => w.UserId == dto.UserId && w.BackpackId == dto.BackpackId);
 
             if (existing != null)
             {
-                _context.WishlistItems.Remove(existing);
-                await _context.SaveChangesAsync();
+                context.WishlistItems.Remove(existing);
+                await context.SaveChangesAsync();
                 return "removed";
             }
 
@@ -44,8 +40,8 @@ namespace BackpackStoreFS.Services
                 BackpackId = dto.BackpackId,
             };
 
-            _context.WishlistItems.Add(newItem);
-            await _context.SaveChangesAsync();
+            context.WishlistItems.Add(newItem);
+            await context.SaveChangesAsync();
             return "added";
         }
     }

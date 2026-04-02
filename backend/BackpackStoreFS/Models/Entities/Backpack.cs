@@ -13,9 +13,6 @@ namespace BackpackStoreFS.Models.Entities
         [Column("name")]
         public string Name { get; set; } = null!;
 
-        [Column("image")]
-        public string Image { get; set; } = null!;
-
         [Required]
         [Column("price", TypeName = "decimal(5,2)")]
         public decimal Price { get; set; }
@@ -36,24 +33,39 @@ namespace BackpackStoreFS.Models.Entities
 
         public bool IsNew { get; set; }
 
-        [Column("rating", TypeName = "decimal(2,1)")]
-        public decimal Rating { get; set; }
+        public List<BackpackImage> Images { get; set; } = new List<BackpackImage>();
+        public List<Review> Reviews { get; set; } = new List<Review>();
+        public List<Rating> Ratings { get; set; } = new List<Rating>();
 
         public Backpack()
         {
-            
+            Images = new List<BackpackImage>();
+            Reviews = new List<Review>();
+            Ratings = new List<Rating>();
         }
 
         public Backpack(BackpackCreateDto dto)
         {
             Name = dto.Name;
-            Image = dto.ImageUrl;
             Price = dto.Price;
             Quantity = dto.Quantity;
             SalePrice = dto.SalePrice;
             CategoryId = dto.CategoryId;
             IsNew = dto.IsNew;
-            Rating = dto.Rating;
+
+            if (!string.IsNullOrEmpty(dto.ImageUrl))
+            {
+                Images.Add(new BackpackImage { Url = dto.ImageUrl });
+            }
+
+            if (dto.Rating > 0)
+            {
+                Ratings.Add(new Rating
+                {
+                    Value = (int)Math.Round(dto.Rating),
+                    UserId = 0
+                });
+            }
         }
     }
 }

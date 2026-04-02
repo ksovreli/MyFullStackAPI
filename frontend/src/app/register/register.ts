@@ -1,13 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart-service';
-import { CommonModule } from '@angular/common'; // Needed for @for and @if
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
   imports: [FormsModule, RouterModule, CommonModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -23,39 +22,31 @@ export class Register {
     password: ''
   }
 
-  serverErrors: string[] = []
+  serverErrors = signal<string[]>([])
+  registrationComplete = signal(false)
 
   onRegister() {
-    this.serverErrors = []
+    this.serverErrors.set([])
 
     this.authService.register(this.regData).subscribe({
       next: () => {
-        this.cartService.refreshCart();
-        this.router.navigateByUrl('/home')
+        this.registrationComplete.set(true)
       },
       error: (err) => {
         console.error('Registration failed', err)
-
-        if (err.error && err.error.errors) {
-          this.serverErrors = err.error.errors
-        }
         
+        if (err.error && err.error.errors) {
+          const extractedErrors = Object.values(err.error.errors).flat() as string[]
+          this.serverErrors.set(extractedErrors)
+        }
         else {
-          this.serverErrors = ['Registration failed. Please check your connection or try a different email.']
+          this.serverErrors.set(['PROTOCOL_ERROR: Connection to Apex Terminal lost.'])
         }
       }
     })
   }
 
-  hasNumber(str: string): boolean {
-    return /[0-9]/.test(str)
-  }
-
-  hasUpper(str: string): boolean {
-    return /[A-Z]/.test(str)
-  }
-
-  hasSymbol(str: string): boolean {
-    return /[!@#$%^&*(),.?":{}|<>]/.test(str)
-  } 
+  hasNumber = (str: string) => /[0-9]/.test(str);
+  hasUpper = (str: string) => /[A-Z]/.test(str);
+  hasSymbol = (str: string) => /[!@#$%^&*(),.?":{}|<>]/.test(str);
 }

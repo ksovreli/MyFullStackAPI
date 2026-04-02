@@ -11,7 +11,7 @@ namespace BackpackStoreFS.Models.Entities
 
         [Required]
         [Column("user_id")]
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; }
 
         [Required]
         public int BackpackId { get; set; }

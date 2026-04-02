@@ -1,6 +1,6 @@
 ﻿using BackpackStoreFS.Models.DTOs;
 using BackpackStoreFS.Models.Entities;
-using BackpackStoreFS.Services;
+using BackpackStoreFS.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackpackStoreFS.Controllers
@@ -11,7 +11,7 @@ namespace BackpackStoreFS.Controllers
     {
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<Backpack>>> GetWishlist(string userId)
+        public async Task<ActionResult<IEnumerable<Backpack>>> GetWishlist(int userId)
         {
             var items = await wishlistService.GetWishlistAsync(userId);
             return Ok(items);

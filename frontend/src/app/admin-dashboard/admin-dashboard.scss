@@ -1,0 +1,328 @@
+$bg-dark: #050505;
+$bg-sidebar: #0a0a0a;
+$gold-primary: #d4af37;
+$gold-glow: #f9d71c;
+$green-optimal: #00ff88;
+$red-alert: #ff3e3e;
+$border-light: rgba(255, 255, 255, 0.05);
+
+@mixin glass-panel {
+  background: rgba(15, 15, 15, 0.8);
+  border: 1px solid rgba($gold-primary, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.admin-wrapper {
+  display: flex;
+  background-color: $bg-dark;
+  min-height: 100vh;
+  color: white;
+  font-family: 'Barlow', sans-serif;
+
+  .sidebar {
+    width: 260px;
+    background: $bg-sidebar;
+    border-right: 1px solid $border-light;
+    padding: 30px 20px;
+
+    .logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      color: $gold-primary;
+      letter-spacing: 4px;
+      margin-bottom: 50px;
+      text-shadow: 0 0 10px rgba($gold-primary, 0.3);
+    }
+
+    .nav-link {
+      display: block;
+      padding: 15px;
+      color: #666;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      transition: 0.4s;
+      border-left: 3px solid transparent;
+
+      &:hover,
+      &.active {
+        color: white;
+        background: rgba($gold-primary, 0.05);
+        border-left-color: $gold-primary;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 40px;
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      font-family: 'Oswald';
+      font-size: 11px;
+      color: #444;
+
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .online {
+          color: $green-optimal;
+        }
+
+        .blink-dot {
+          width: 8px;
+          height: 8px;
+          background: $green-optimal;
+          border-radius: 50%;
+          box-shadow: 0 0 10px $green-optimal;
+          animation: pulse 2s infinite;
+        }
+      }
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+
+  .stat-card {
+    @include glass-panel;
+    padding: 25px;
+
+    .label {
+      font-size: 10px;
+      color: #555;
+      letter-spacing: 2px;
+    }
+
+    .value {
+      display: block;
+      font-size: 36px;
+      font-family: 'Oswald';
+      margin-top: 5px;
+    }
+
+    .gold {
+      color: $gold-glow;
+      text-shadow: 0 0 15px rgba($gold-glow, 0.2);
+    }
+  }
+}
+
+.table-container {
+  @include glass-panel;
+  padding: 30px;
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    h2 {
+      font-family: 'Oswald';
+      font-size: 18px;
+      color: $gold-primary;
+      letter-spacing: 2px;
+    }
+
+    .terminal-input {
+      background: #000;
+      border: 1px solid #222;
+      color: $gold-primary;
+      padding: 10px 15px;
+      font-family: 'Courier New';
+      outline: none;
+      transition: 0.3s;
+
+      &:focus {
+        border-color: $gold-primary;
+        box-shadow: 0 0 10px rgba($gold-primary, 0.2);
+      }
+    }
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      color: #444;
+      font-size: 10px;
+      padding: 15px;
+      border-bottom: 1px solid #111;
+      letter-spacing: 1px;
+    }
+
+    td {
+      padding: 15px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      color: #ccc;
+    }
+
+    .gold {
+      color: $gold-primary;
+    }
+
+    .status-badge {
+      font-size: 9px;
+      padding: 3px 8px;
+      border: 1px solid;
+      border-radius: 2px;
+
+      &[data-status="Pending"] {
+        color: $gold-primary;
+        border-color: rgba($gold-primary, 0.4);
+      }
+
+      &[data-status="Delivered"] {
+        color: $green-optimal;
+        border-color: rgba($green-optimal, 0.4);
+      }
+
+      &[data-status="Cancelled"] {
+        color: $red-alert;
+        border-color: rgba($red-alert, 0.4);
+      }
+    }
+
+    .btn-action {
+      background: transparent;
+      border: 1px solid #333;
+      color: #888;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: 'Oswald';
+      font-size: 10px;
+      transition: 0.3s;
+
+      &:hover {
+        background: white;
+        color: black;
+        border-color: white;
+      }
+    }
+  }
+}
+
+.terminal-footer {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: $green-optimal;
+  border-color: rgba($green-optimal, 0.1) !important;
+
+  .prompt {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-wrapper {
+    flex-direction: column;
+
+    .sidebar {
+      width: 100%;
+      height: auto;
+      padding: 20px;
+      border-right: none;
+      border-bottom: 1px solid $border-light;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+        margin-bottom: 0;
+        font-size: 18px;
+      }
+
+      nav {
+        display: flex;
+        gap: 10px;
+
+        .nav-link {
+          padding: 8px 12px;
+          border-left: none;
+          border-bottom: 2px solid transparent;
+          font-size: 10px;
+
+          &:hover,
+          &.active {
+            border-left-color: transparent;
+            border-bottom-color: $gold-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    padding: 20px !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    padding: 15px;
+    overflow-x: auto;
+
+    .table-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+
+      .terminal-input {
+        width: 100%;
+      }
+    }
+  }
+
+  .admin-table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .stat-card .value {
+    font-size: 28px;
+  }
+}

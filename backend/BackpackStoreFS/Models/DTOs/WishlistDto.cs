@@ -4,7 +4,7 @@ namespace BackpackStoreFS.Models.DTOs
 {
     public class WishlistDto
     {
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; }
         public int BackpackId { get; set; }
     }
 }

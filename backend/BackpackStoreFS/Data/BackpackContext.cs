@@ -12,11 +12,27 @@ namespace BackpackStoreFS.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<BasketItem> BasketsItems { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<BackpackImage> BackpackImages { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<PasswordResetCode> PasswordResetCodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-             
+
+            modelBuilder.Entity<PasswordResetCode>(entity =>
+            {
+                entity.HasKey(p => p.Id);
+
+                entity.HasOne(p => p.User)
+                      .WithMany()
+                      .HasPrincipalKey(u => u.Email)
+                      .HasForeignKey(p => p.Email)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Backpacks" },
                 new Category { Id = 2, Name = "Duffel Bags" },
@@ -24,23 +40,39 @@ namespace BackpackStoreFS.Data
             );
 
             modelBuilder.Entity<Backpack>().HasData(
-                new Backpack { Id = 1, Name = "APEX COMMUTER", Image = "/images/APEX_Commuter.png", Price = 90, Quantity = 10, SalePrice = 65, Rating = 4.5m, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 2, Name = "APEX HERITAGE", Image = "/images/APEX_Heritage.png", Price = 75, Quantity = 12, Rating = 4.1m, CategoryId = 1, IsNew = true },
-                new Backpack { Id = 3, Name = "APEX PULSE", Image = "/images/APEX_Pulse.png", Price = 80, Quantity = 8, Rating = 4.8m, CategoryId = 1, IsNew = true },
-                new Backpack { Id = 4, Name = "APEX STEALTH", Image = "/images/APEX_Stealth.png", Price = 110, Quantity = 6, SalePrice = 95, Rating = 4.2m, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 5, Name = "APEX SKYLINE", Image = "/images/APEX_Skyline.png", Price = 95, Quantity = 9, Rating = 4.8m, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 6, Name = "APEX GLOBAL", Image = "/images/APEX_Global.png", Price = 120, Quantity = 5, SalePrice = 85, Rating = 4.5m, CategoryId = 1, IsNew = false },
+                new Backpack { Id = 1, Name = "APEX COMMUTER", Price = 90, Quantity = 10, SalePrice = 65, CategoryId = 1, IsNew = false },
+                new Backpack { Id = 2, Name = "APEX HERITAGE", Price = 75, Quantity = 12, CategoryId = 1, IsNew = true },
+                new Backpack { Id = 3, Name = "APEX PULSE", Price = 80, Quantity = 8, CategoryId = 1, IsNew = true },
+                new Backpack { Id = 4, Name = "APEX STEALTH", Price = 110, Quantity = 6, SalePrice = 95, CategoryId = 1, IsNew = false },
+                new Backpack { Id = 5, Name = "APEX SKYLINE", Price = 95, Quantity = 9, CategoryId = 1, IsNew = false },
+                new Backpack { Id = 6, Name = "APEX GLOBAL", Price = 120, Quantity = 5, SalePrice = 85, CategoryId = 1, IsNew = false },
+                new Backpack { Id = 7, Name = "APEX CROSSOVER", Price = 95, Quantity = 7, CategoryId = 2, IsNew = false },
+                new Backpack { Id = 8, Name = "APEX EXECUTIVE", Price = 150, Quantity = 4, SalePrice = 115, CategoryId = 2, IsNew = false },
+                new Backpack { Id = 9, Name = "APEX IGNITE", Price = 85, Quantity = 11, CategoryId = 2, IsNew = true },
+                new Backpack { Id = 10, Name = "APEX TRANSFORMER", Price = 110, Quantity = 6, SalePrice = 89, CategoryId = 2, IsNew = false },
+                new Backpack { Id = 11, Name = "APEX LEGACY", Price = 85, Quantity = 10, CategoryId = 2, IsNew = false },
+                new Backpack { Id = 12, Name = "APEX ODYSSEY", Price = 160, Quantity = 3, SalePrice = 130, CategoryId = 3, IsNew = false },
+                new Backpack { Id = 13, Name = "APEX VOYAGER", Price = 145, Quantity = 5, CategoryId = 3, IsNew = true },
+                new Backpack { Id = 14, Name = "APEX SUMMIT", Price = 130, Quantity = 4, CategoryId = 3, IsNew = false },
+                new Backpack { Id = 15, Name = "APEX CYBER", Price = 180, Quantity = 2, SalePrice = 149, CategoryId = 3, IsNew = false }
+            );
 
-                new Backpack { Id = 7, Name = "APEX CROSSOVER", Image = "/images/APEX_Crossover.png", Price = 95, Quantity = 7, Rating = 4.0m, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 8, Name = "APEX EXECUTIVE", Image = "/images/APEX_Executive.png", Price = 150, Quantity = 4, SalePrice = 115, Rating = 4.9m, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 9, Name = "APEX IGNITE", Image = "/images/APEX_Ignite.png", Price = 85, Quantity = 11, Rating = 4.8m, CategoryId = 2, IsNew = true },
-                new Backpack { Id = 10, Name = "APEX TRANSFORMER", Image = "/images/APEX_Transformer.png", Price = 110, Quantity = 6, SalePrice = 89, Rating = 4.7m, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 11, Name = "APEX LEGACY", Image = "/images/APEX_Legacy.png", Price = 85, Quantity = 10, Rating = 3.9m, CategoryId = 2, IsNew = false },
-
-                new Backpack { Id = 12, Name = "APEX ODYSSEY", Image = "/images/APEX_Odyssey.png", Price = 160, Quantity = 3, SalePrice = 130, Rating = 5.0m, CategoryId = 3, IsNew = false },
-                new Backpack { Id = 13, Name = "APEX VOYAGER", Image = "/images/APEX_Voyager.png", Price = 145, Quantity = 5, Rating = 5.0m, CategoryId = 3, IsNew = true },
-                new Backpack { Id = 14, Name = "APEX SUMMIT", Image = "/images/APEX_Summit.png", Price = 130, Quantity = 4, Rating = 4.7m, CategoryId = 3, IsNew = false },
-                new Backpack { Id = 15, Name = "APEX CYBER", Image = "/images/APEX_Cyber.png", Price = 180, Quantity = 2, SalePrice = 149, Rating = 4.6m, CategoryId = 3, IsNew = false }
+            modelBuilder.Entity<BackpackImage>().HasData(
+                new BackpackImage { Id = 1, BackpackId = 1, Url = "/images/APEX_Commuter.png" },
+                new BackpackImage { Id = 2, BackpackId = 2, Url = "/images/APEX_Heritage.png" },
+                new BackpackImage { Id = 3, BackpackId = 3, Url = "/images/APEX_Pulse.png" },
+                new BackpackImage { Id = 4, BackpackId = 4, Url = "/images/APEX_Stealth.png" },
+                new BackpackImage { Id = 5, BackpackId = 5, Url = "/images/APEX_Skyline.png" },
+                new BackpackImage { Id = 6, BackpackId = 6, Url = "/images/APEX_Global.png" },
+                new BackpackImage { Id = 7, BackpackId = 7, Url = "/images/APEX_Crossover.png" },
+                new BackpackImage { Id = 8, BackpackId = 8, Url = "/images/APEX_Executive.png" },
+                new BackpackImage { Id = 9, BackpackId = 9, Url = "/images/APEX_Ignite.png" },
+                new BackpackImage { Id = 10, BackpackId = 10, Url = "/images/APEX_Transformer.png" },
+                new BackpackImage { Id = 11, BackpackId = 11, Url = "/images/APEX_Legacy.png" },
+                new BackpackImage { Id = 12, BackpackId = 12, Url = "/images/APEX_Odyssey.png" },
+                new BackpackImage { Id = 13, BackpackId = 13, Url = "/images/APEX_Voyager.png" },
+                new BackpackImage { Id = 14, BackpackId = 14, Url = "/images/APEX_Summit.png" },
+                new BackpackImage { Id = 15, BackpackId = 15, Url = "/images/APEX_Cyber.png" }
             );
         }
     }

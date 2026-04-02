@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { AuthService } from './auth-service';
-import Swal from 'sweetalert2';
+import { AlertService } from './alert-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,7 @@ export class WishlistService {
   private http = inject(HttpClient)
   private auth = inject(AuthService)
   private apiUrl = 'https://localhost:7119/api/Wishlist'
+  private alertService = inject(AlertService)
 
   items = signal<Product[]>([])
 
@@ -33,42 +34,37 @@ export class WishlistService {
 
   toggleWishlist(product: Product) {
     const user = this.auth.currentUser()
+
     if (!user) {
-      this.showToast('Please login to save favorites', 'info')
+      this.alertService.success('Please log in to manage your wishlist.')
       return
     }
 
-    const dto = { 
-      userId: user.id?.toString(), 
-      backpackId: product.id 
+    const dto = {
+      userId: user.id,
+      backpackId: product.id
     }
 
     this.http.post(`${this.apiUrl}/toggle`, dto)
       .subscribe({
         next: (response: any) => {
           this.refreshWishlist()
-          const msg = response.status === 'added' ? 'Added to wishlist!' : 'Removed from wishlist'
-          const icon = response.status === 'added' ? 'success' : 'info'
-          this.showToast(msg, icon)
+
+          if (response.status === 'added') {
+            this.alertService.success(`${product.name} added to favorites`)
+          }
+          else {
+            this.alertService.success(`${product.name} removed from favorites`)
+          }
         },
-        error: (err) => console.error('Toggle failed', err)
+        error: (err) => {
+          console.error('Toggle failed', err)
+          this.alertService.success('Connection error. Try again later.')
+        }
       })
   }
 
   isInWishlist(productId: number): boolean {
     return this.items().some(item => item.id === productId)
-  }
-
-  private showToast(title: string, icon: 'success' | 'info') {
-    Swal.fire({
-      title: title,
-      icon: icon,
-      background: '#121212',
-      color: '#fff',
-      timer: 1500,
-      showConfirmButton: false,
-      toast: true,
-      position: 'top-end'
-    })
   }
 }

@@ -31,7 +31,7 @@
               <div class="product-details">
                 <p class="category">{{ item.categoryName }}</p>
                 <h3>{{ item.name }}</h3>
-                <button (click)="removeItem(item.id)" class="text-remove-btn">
+                <button (click)="removeItem(item.backpackId)" class="text-remove-btn">
                   Remove item
                 </button>
               </div>
@@ -39,8 +39,8 @@
 
             <div class="controls-group">
               <div class="quantity-control">
-                <button (click)="changeQuantity(item, -1)" [disabled]="item.quantity === 1">−</button>
-                <span class="qty">{{ item.quantity ?? 1 }}</span>
+                <button (click)="changeQuantity(item, -1)" [disabled]="item.quantity === 1">-</button>
+                <span class="qty">{{ item.quantity }}</span>
                 <button (click)="changeQuantity(item, 1)">+</button>
               </div>
               <div class="price-display">
@@ -48,7 +48,7 @@
                   <span class="original-price">${{ item.price! * item.quantity! }}</span>
                   <span class="current-price sales">${{ item.salePrice * item.quantity! }}</span>
                 } @else {
-                  <span class="current-price">${{ (item.price ?? 0) * item.quantity! }}</span>
+                  <span class="current-price">${{ (item.price) * item.quantity! }}</span>
                 }
               </div>
             </div>
@@ -85,7 +85,7 @@
               <span>Total</span>
               <span class="total-amount">${{ total() }}</span>
             </div>
-            <button class="btn-checkout">
+            <button routerLink="/checkout" class="btn-checkout">
               Secure Checkout
               <span class="arrow">→</span>
             </button>

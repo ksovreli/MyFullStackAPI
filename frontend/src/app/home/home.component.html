@@ -53,8 +53,8 @@
 
         <div class="bags-container">
             @for (product of saleProducts; track $index) {
-            <div class="bag-card" data-aos="fade-right">
-                <img [routerLink]="['/product', 'apex-voyager-id']" [src]="product.image" [alt]="product.name">
+            <div class="bag-card" [attr.data-aos]="'fade-right'" [attr.data-aos-delay]="$index * 100">
+                <img [routerLink]="['/product', product.id]" [src]="product.image" [alt]="product.name">
 
                 <h3>{{product.name}}</h3>
                 <div class="price">

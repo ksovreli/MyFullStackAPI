@@ -1,5 +1,6 @@
 using BackpackStoreFS.Data;
 using BackpackStoreFS.Models.Entities;
+using BackpackStoreFS.ServiceContracts;
 using BackpackStoreFS.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -58,6 +59,15 @@ builder.Services.AddDbContext<BackpackContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
     options.Password.RequiredLength = 6;
+
+    options.Password.RequireDigit = true;
+
+    options.Password.RequireUppercase = true;
+
+    options.Password.RequireLowercase = true;
+
+    options.Password.RequireNonAlphanumeric = true;
+
     options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<BackpackContext>()
@@ -82,7 +92,8 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-        NameClaimType = ClaimTypes.NameIdentifier,
+
+        NameClaimType = ClaimTypes.Name,
         RoleClaimType = ClaimTypes.Role
     };
 });
@@ -92,6 +103,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddCors(options =>
 {
@@ -102,7 +116,26 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+    string[] roleNames = { "Admin", "User" };
+
+    foreach (var roleName in roleNames)
+    {
+        if (!await roleManager.RoleExistsAsync(roleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole<int>
+            {
+                Name = roleName
+            });
+        }
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -112,6 +145,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
+
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

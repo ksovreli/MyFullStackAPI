@@ -1,20 +1,18 @@
-import { Component, computed, inject, signal, } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CartService } from '../services/cart-service';
 import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { BasketItem } from '../models/basketitem';
 
 @Component({
   selector: 'app-cart',
-  standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
 })
 export class Cart {
-
   public cartService = inject(CartService)
-  
   items = this.cartService.items
 
   total = computed(() => {
@@ -28,14 +26,15 @@ export class Cart {
     this.cartService.refreshCart()
   }
 
-  changeQuantity(item: any, delta: number) {
-    const newQty = (item.quantity ?? 1) + delta
+
+  changeQuantity(item: BasketItem, delta: number) {
+    const newQty = item.quantity + delta
     if (newQty > 0) {
-      this.cartService.updateQuantity(item.id, newQty)
+      this.cartService.updateQuantity(item.backpackId, newQty)
     }
   }
 
-  removeItem(id: number) {
+  removeItem(backpackId: number) {
     Swal.fire({
       title: 'Are you sure?',
       text: "This item will be removed from your gear.",
@@ -48,7 +47,7 @@ export class Cart {
       color: '#fff'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.cartService.removeItem(id)
+        this.cartService.removeItem(backpackId)
       }
     })
   }

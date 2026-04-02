@@ -5,15 +5,17 @@ namespace BackpackStoreFS.Models.DTOs
     public class UserCreateDto
     {
         [Required]
-        [MinLength(3)]
+        [StringLength(20, MinimumLength = 3)]
+        [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "Only alphanumeric and underscores allowed")]
         public string Username { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
+        [MaxLength(100)]
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [MinLength(6)]
+        [StringLength(100, MinimumLength = 8)]
         public string Password { get; set; } = string.Empty;
     }
 

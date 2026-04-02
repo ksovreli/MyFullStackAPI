@@ -55,7 +55,7 @@ header {
 
                     &.active-link {
                         color: white !important;
-                        border-bottom: 2px solid #ff4d4d;
+                        border-bottom: 2px solid #8a6d3b;
                     }
                 }
             }
@@ -113,6 +113,12 @@ header {
                 min-width: 140px;
                 padding: 10px 0;
                 border-radius: 4px;
+
+                .dropdown-divider {
+                    border: 0;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    margin: 5px 0;
+                }
 
                 a {
                     color: #A29C9C;
@@ -203,9 +209,9 @@ header {
                 li a {
                     font-size: 30px;
                     color: #EEE6E6;
-                    
+
                     &.active-link {
-                      border-bottom: 3px solid #ff4d4d;
+                        border-bottom: 3px solid #ff4d4d;
                     }
                 }
             }
@@ -224,15 +230,18 @@ header {
 
         .header-actions {
             gap: 15px;
-            
+
             .action-btn {
                 font-size: 18px;
             }
         }
-        
+
         .burgerMenu {
             width: 40px;
-            span { width: 25px; }
+
+            span {
+                width: 25px;
+            }
         }
     }
 }

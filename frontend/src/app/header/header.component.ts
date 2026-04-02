@@ -14,7 +14,6 @@ import { WishlistService } from '../services/wishlist-service';
 export class HeaderComponent {
 
   menuOpen = false
-
   public router = inject(Router)
   public cartService = inject(CartService)
   public authService = inject(AuthService)
@@ -48,9 +47,14 @@ export class HeaderComponent {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' })
       }
-    } else {
+    }
+    else {
       this.router.navigate(['/home'], { fragment: sectionId })
     }
+  }
+
+  isAdmin(): boolean {
+    return this.authService.getUserRole() === 'Admin'
   }
 
   navigateToHome() {
