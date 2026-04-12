@@ -1,91 +1,182 @@
 $gold-primary: #d4af37;
+$gold-glow: rgba(212, 175, 55, 0.4);
+$bg-main: #050505;
 $bg-card: #0d0d12;
 $text-muted: #a29c9c;
 $success-green: #00ff88;
 $error-red: #ff4444;
+$font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
 .auth-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #050505;
+  background: radial-gradient(circle at center, #111 0%, $bg-main 100%);
   padding: 20px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
 
   .auth-card {
+    position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     background: $bg-card;
     border: 1px solid #1a1a1a;
     border-top: 4px solid $gold-primary;
-    padding: 40px;
-    border-radius: 8px;
+    padding: 45px 35px;
+    border-radius: 4px;
     text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 4px, 3px 100%;
+      pointer-events: none;
+    }
   }
 
-  .auth-header h2 {
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0;
+  .auth-header {
+    margin-bottom: 30px;
+    
+    h2 {
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin: 0;
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 13px;
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
   }
 
   .status-box {
     margin: 40px 0;
-    min-height: 150px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     .loader {
       .spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba($gold-primary, 0.1);
-        border-top: 3px solid $gold-primary;
+        width: 45px;
+        height: 45px;
+        border: 2px solid rgba($gold-primary, 0.1);
+        border-top: 2px solid $gold-primary;
         border-radius: 50%;
         margin: 0 auto 20px;
-        animation: spin 1s linear infinite;
+        animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        box-shadow: 0 0 15px $gold-glow;
       }
-      p { color: $gold-primary; font-family: monospace; font-size: 12px; }
+      p { 
+        color: $gold-primary; 
+        font-family: $font-mono; 
+        font-size: 11px; 
+        letter-spacing: 2px;
+        animation: pulse 1.5s infinite;
+      }
     }
 
     .result {
-      h3 { letter-spacing: 3px; margin: 15px 0 10px; }
-      p { color: $text-muted; font-size: 14px; }
-
-      &.success h3 { color: $success-green; }
-      &.error h3 { color: $error-red; }
+      animation: slideUp 0.5s ease-out;
 
       .icon-hex {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         background: #14141a;
         margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: bold;
+        font-size: 24px;
         clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
         border: 1px solid #222;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+          background: currentColor;
+          opacity: 0.1;
+        }
+      }
+
+      h3 { 
+        text-transform: uppercase;
+        letter-spacing: 4px; 
+        margin: 20px 0 10px; 
+        font-size: 1.2rem;
+      }
+
+      &.success {
+        color: $success-green;
+        .icon-hex { color: $success-green; border-color: rgba($success-green, 0.3); }
+        h3 { text-shadow: 0 0 15px rgba($success-green, 0.4); }
+      }
+
+      &.error {
+        color: $error-red;
+        .icon-hex { color: $error-red; border-color: rgba($error-red, 0.3); }
+        h3 { text-shadow: 0 0 15px rgba($error-red, 0.4); }
       }
     }
   }
 
   .retry-btn {
-    margin-top: 20px;
+    margin-top: 25px;
     background: transparent;
-    border: 1px solid $text-muted;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    padding: 10px 20px;
+    padding: 12px 28px;
     cursor: pointer;
     text-transform: uppercase;
-    font-size: 12px;
-    &:hover { border-color: white; }
+    font-size: 11px;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    font-family: $font-mono;
+
+    &:hover {
+      background: white;
+      color: black;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
   }
 
-  .sys-ref {
-    font-size: 10px;
-    color: #333;
-    font-family: monospace;
+  .auth-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    .sys-ref {
+      font-size: 10px;
+      color: #333;
+      font-family: $font-mono;
+      text-transform: uppercase;
+    }
   }
 }
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
