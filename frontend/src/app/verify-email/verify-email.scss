@@ -1,182 +1,170 @@
 $gold-primary: #d4af37;
-$gold-glow: rgba(212, 175, 55, 0.4);
-$bg-main: #050505;
-$bg-card: #0d0d12;
-$text-muted: #a29c9c;
-$success-green: #00ff88;
-$error-red: #ff4444;
-$font-mono: 'JetBrains Mono', 'Courier New', monospace;
+$gold-glow: rgba(212, 175, 55, 0.3);
+$error-red: #ff003c;
+$success-green: #00ff41;
+$bg-black: #050505;
+$bg-card: #0c0c0c;
 
 .auth-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background: radial-gradient(circle at center, #111 0%, $bg-main 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1a1a1a 0%, $bg-black 100%);
   padding: 20px;
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Oswald', sans-serif;
+}
 
-  .auth-card {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    background: $bg-card;
-    border: 1px solid #1a1a1a;
-    border-top: 4px solid $gold-primary;
-    padding: 45px 35px;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  background: $bg-card;
+  border: 1px solid rgba($gold-primary, 0.2);
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  // კიბერპანკ კუთხე
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-                  linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-      background-size: 100% 4px, 3px 100%;
-      pointer-events: none;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, $gold-primary, transparent);
   }
 
   .auth-header {
-    margin-bottom: 30px;
-    
+    text-align: center;
+    margin-bottom: 40px;
+
     h2 {
-      color: white;
+      color: $gold-primary;
       text-transform: uppercase;
-      letter-spacing: 4px;
-      margin: 0;
-      font-size: 1.5rem;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      letter-spacing: 3px;
+      font-size: 24px;
+      margin-bottom: 8px;
     }
 
     p {
-      color: $text-muted;
-      font-size: 13px;
-      margin-top: 10px;
+      color: #666;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
   }
+}
 
-  .status-box {
-    margin: 40px 0;
-    min-height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.status-box {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-    .loader {
-      .spinner {
-        width: 45px;
-        height: 45px;
-        border: 2px solid rgba($gold-primary, 0.1);
-        border-top: 2px solid $gold-primary;
-        border-radius: 50%;
-        margin: 0 auto 20px;
-        animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        box-shadow: 0 0 15px $gold-glow;
-      }
-      p { 
-        color: $gold-primary; 
-        font-family: $font-mono; 
-        font-size: 11px; 
-        letter-spacing: 2px;
-        animation: pulse 1.5s infinite;
-      }
+  .loader {
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 2px solid rgba($gold-primary, 0.1);
+      border-top-color: $gold-primary;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 15px $gold-glow;
     }
-
-    .result {
-      animation: slideUp 0.5s ease-out;
-
-      .icon-hex {
-        width: 60px;
-        height: 60px;
-        background: #14141a;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-        border: 1px solid #222;
-        position: relative;
-        
-        &::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-          background: currentColor;
-          opacity: 0.1;
-        }
-      }
-
-      h3 { 
-        text-transform: uppercase;
-        letter-spacing: 4px; 
-        margin: 20px 0 10px; 
-        font-size: 1.2rem;
-      }
-
-      &.success {
-        color: $success-green;
-        .icon-hex { color: $success-green; border-color: rgba($success-green, 0.3); }
-        h3 { text-shadow: 0 0 15px rgba($success-green, 0.4); }
-      }
-
-      &.error {
-        color: $error-red;
-        .icon-hex { color: $error-red; border-color: rgba($error-red, 0.3); }
-        h3 { text-shadow: 0 0 15px rgba($error-red, 0.4); }
-      }
+    p {
+      color: $gold-primary;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      letter-spacing: 2px;
+      animation: pulse 1.5s infinite;
     }
   }
 
-  .retry-btn {
-    margin-top: 25px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    padding: 12px 28px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
-    font-family: $font-mono;
+  .result {
+    animation: fadeIn 0.5s ease-out;
 
-    &:hover {
-      background: white;
-      color: black;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    .icon-hex {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      background: rgba(255, 255, 255, 0.05);
     }
-  }
 
-  .auth-footer {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    h3 {
+      font-size: 20px;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
 
-    .sys-ref {
-      font-size: 10px;
-      color: #333;
-      font-family: $font-mono;
-      text-transform: uppercase;
+    p {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    &.success {
+      .icon-hex { color: $success-green; border: 1px solid $success-green; box-shadow: 0 0 20px rgba($success-green, 0.2); }
+      h3 { color: $success-green; }
+    }
+
+    &.error {
+      .icon-hex { color: $error-red; border: 1px solid $error-red; box-shadow: 0 0 20px rgba($error-red, 0.2); }
+      h3 { color: $error-red; }
     }
   }
 }
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
+.retry-btn {
+  margin-top: 25px;
+  background: transparent;
+  border: 1px solid $gold-primary;
+  color: $gold-primary;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  &:hover {
+    background: $gold-primary;
+    color: black;
+    box-shadow: 0 0 20px $gold-glow;
+  }
 }
 
-@keyframes slideUp {
+.auth-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+
+  .sys-ref {
+    font-family: 'Courier New', monospace;
+    color: #333;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+}
+
+// Animations
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 50% { opacity: 0.5; } }
+@keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px 20px;
+    margin: 15px;
+  }
 }

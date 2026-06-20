@@ -1,27 +1,60 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment';
+import { Observable } from 'rxjs';
+import { Product } from '../models/product';
 import { Order } from '../models/order';
 
-@Injectable({ 
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AdminService {
-  private apiUrl = `${environment.apiUrl}/orders/admin`;
-  
-  allOrders = signal<Order[]>([])
+
+  private ordersApi = `${environment.apiUrl}/orders/admin`;
+  private productsApi = `${environment.apiUrl}/backpacks`;
+  private categoriesApi = `${environment.apiUrl}/categories`;
+  private uploadApi = `${environment.apiUrl}/upload`;
+
+  allOrders = signal<Order[]>([]);
+  products = signal<Product[]>([]);
 
   constructor(private http: HttpClient) {}
 
   loadAllOrders() {
-    this.http.get<Order[]>(`${this.apiUrl}/all`).subscribe(orders => {
-      this.allOrders.set(orders)
+    this.http.get<Order[]>(`${this.ordersApi}/all`).subscribe({
+      next: (res) => this.allOrders.set(res || []),
+      error: (err) => console.error(err)
     });
   }
 
-  updateStatus(orderId: number, newStatus: string) {
-    return this.http.patch(`${this.apiUrl}/${orderId}/status`, `"${newStatus}"`, {
+  loadProducts() {
+    this.http.get<Product[]>(this.productsApi).subscribe({
+      next: (res) => this.products.set(res || []),
+      error: (err) => console.error(err)
+    });
+  }
+
+  getCategories() {
+    return this.http.get<any[]>(this.categoriesApi);
+  }
+
+  uploadImage(formData: FormData) {
+  return this.http.post(`${this.uploadApi}`, formData);
+}
+
+  addBackpack(payload: any): Observable<Product> {
+    return this.http.post<Product>(this.productsApi, payload);
+  }
+
+  updateBackpack(id: number, payload: any): Observable<Product> {
+    return this.http.put<Product>(`${this.productsApi}/${id}`, payload);
+  }
+
+  deleteBackpack(id: number) {
+    return this.http.delete(`${this.productsApi}/${id}`);
+  }
+
+  updateStatus(orderId: number, status: string) {
+    return this.http.patch(`${this.ordersApi}/${orderId}/status`, `"${status}"`, {
       headers: { 'Content-Type': 'application/json' }
-    })
+    });
   }
 }

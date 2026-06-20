@@ -1,102 +1,226 @@
+$primary-white: #ffffff;
+$accent-color: rgba(255, 255, 255, 0.12);
+$input-bg: rgba(255, 255, 255, 0.05);
+$border-light: rgba(255, 255, 255, 0.2);
+$transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+$gold-primary: #d4af37;
+$gold-glow: #ffcc33;
+$bg-dark: #0a0a0a;
+$gold-muted: #ff4d4d;
+
+
 main {
     overflow-x: hidden;
 
-    .banner-container {
+    $gold-primary: #d4af37;
+    $gold-glow: #ffcc33;
+    $gold-muted: #8a6d3b;
+    $bg-dark: #050505;
+
+    .premium-banner {
         position: relative;
         width: 100%;
-        height: 100vh;
+        height: 90vh; // ეკრანის უმეტეს ნაწილს იკავებს
+        background-color: $bg-dark;
         display: flex;
-        justify-content: center;
         align-items: center;
-        background-color: #000;
         overflow: hidden;
+        border-bottom: 1px solid rgba($gold-primary, 0.1);
 
-        .banner-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .container {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.5) 100%);
-            z-index: 1;
-        }
-
-        .banner-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            image-rendering: auto;
-            z-index: 0;
-        }
-
-        .banner-content {
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr; // ტექსტი და გამოსახულება
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            padding: 0 5%;
+            z-index: 10;
+        }
 
-            h1 {
-                font-size: clamp(40px, 8vw, 90px);
-                font-family: "Oswald", sans-serif;
-                color: #fff;
-                font-weight: 700;
+        // ტექსტის ბლოკი
+        .content-box {
+            .collection-label {
+                color: $gold-muted;
+                font-family: 'Oswald', sans-serif;
                 letter-spacing: 5px;
-                margin-bottom: 30px;
-                text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            }
-
-            .shop-btn {
-                width: 220px;
-                height: 55px;
-                border: 1px solid rgba(255, 255, 255, 0.8);
-                border-radius: 0;
-                background-color: transparent;
-
-                color: white;
-                font-family: "Oswald", sans-serif;
-                font-size: 18px;
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 4px;
-
-                cursor: pointer;
-                outline: none;
-                overflow: hidden;
+                font-size: 13px;
+                display: block;
+                margin-bottom: 20px;
                 position: relative;
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                padding-left: 40px;
 
-                &:hover {
-                    background-color: white;
-                    color: black;
-                    border-color: white;
-                    letter-spacing: 6px;
-                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-                }
-
-                &:active {
-                    transform: scale(0.96);
-                    transition: 0.1s;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 30px;
+                    height: 1px;
+                    background: $gold-primary;
                 }
             }
+
+            .main-title {
+                color: #fff;
+                font-family: 'Oswald', sans-serif;
+                font-size: clamp(50px, 8vw, 95px); // ადაპტური ზომა
+                font-weight: 800;
+                line-height: 0.9;
+                margin-bottom: 30px;
+                text-transform: uppercase;
+
+                .gold-text {
+                    color: $gold-primary;
+                    background: linear-gradient(45deg, $gold-muted, $gold-primary, $gold-glow);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    filter: drop-shadow(0 0 10px rgba($gold-primary, 0.2));
+                }
+            }
+
+            .description {
+                color: #888;
+                font-size: 18px;
+                line-height: 1.7;
+                max-width: 500px;
+                margin-bottom: 45px;
+                font-weight: 300;
+            }
+        }
+
+        // ღილაკის სტილი
+        .shop-btn {
+            background: transparent;
+            border: 1px solid $gold-primary;
+            color: #fff;
+            padding: 18px 45px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
 
             i {
-                font-size: 55px;
-                margin-top: 50px;
-                color: white;
-                cursor: pointer;
-                opacity: 0.8;
-                transition: 0.3s;
+                transition: transform 0.3s;
+                color: $gold-primary;
+            }
 
-                &:hover {
-                    opacity: 1;
-                    transform: scale(1.2);
+            &:hover {
+                background: $gold-primary;
+                color: #000;
+                box-shadow: 0 15px 40px rgba($gold-primary, 0.25);
+                transform: translateY(-5px);
+
+                i {
+                    transform: translateX(8px);
+                    color: #000;
                 }
+            }
+        }
+
+        // გამოსახულების ბლოკი
+        .image-box {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .main-image {
+                width: 100%;
+                max-width: 550px;
+                z-index: 5;
+                filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
+                animation: floatBag 6s ease-in-out infinite;
+            }
+
+            .glow-bg {
+                position: absolute;
+                width: 450px;
+                height: 450px;
+                background: radial-gradient(circle, rgba($gold-primary, 0.12) 0%, transparent 70%);
+                border-radius: 50%;
+                z-index: 1;
+            }
+        }
+
+        // გვერდითა ვერტიკალური ტექსტი
+        .side-text {
+            position: absolute;
+            right: -80px;
+            bottom: 20%;
+            transform: rotate(-90deg);
+            font-family: 'Oswald', sans-serif;
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 110px;
+            font-weight: 900;
+            letter-spacing: 10px;
+            pointer-events: none;
+            white-space: nowrap;
+            user-select: none;
+        }
+    }
+
+    @keyframes floatBag {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0);
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(1deg);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .premium-banner {
+            height: auto;
+            padding: 100px 0;
+
+            .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .content-box {
+                order: 2;
+
+                .description {
+                    margin: 0 auto 40px;
+                }
+
+                .shop-btn {
+                    margin: 0 auto;
+                }
+
+                .collection-label {
+                    padding-left: 0;
+
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+
+            .image-box {
+                order: 1;
+                margin-bottom: 50px;
+
+                .main-image {
+                    max-width: 400px;
+                }
+            }
+
+            .side-text {
+                display: none;
             }
         }
     }
@@ -402,9 +526,23 @@ main {
                 width: 70%;
 
                 h2 {
-                    font-size: 50px;
-                    font-family: "Barlow", sans-serif;
-                    margin-bottom: 20px;
+                    font-family: "Oswald", sans-serif;
+                    font-size: clamp(48px, 6vw, 72px);
+                    text-transform: uppercase;
+                    margin: 0;
+
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 60px;
+                        height: 4px;
+                        background: $primary-white;
+                        margin-bottom: 20px;
+
+                        @media (max-width: 1024px) {
+                            margin: 20px auto;
+                        }
+                    }
                 }
 
                 p {
@@ -429,143 +567,116 @@ main {
 
     .contact-container {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         background-color: #000;
-        color: white;
-
-        height: auto;
+        color: $primary-white;
         min-height: 90vh;
-        padding: 80px 0;
+        padding: 80px 5%;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
 
         .contact-form {
             width: 100%;
+            max-width: 1200px;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: flex-start;
-            justify-content: space-evenly;
-            padding: 40px;
+            gap: 80px;
 
             @media (max-width: 1024px) {
                 flex-direction: column-reverse;
                 align-items: center;
                 gap: 60px;
-                padding: 20px;
-
-                form {
-                    width: 90%;
-                }
-
-                .contact-info {
-                    width: 90%;
-                    text-align: center;
-                    align-items: center;
-
-                    h2 {
-                        font-size: 36px;
-                    }
-
-                    p {
-                        max-width: 100%;
-                    }
-                }
-            }
-
-            @media (max-width: 480px) {
-                padding: 10px;
-
-                form {
-                    width: 100%;
-                    gap: 15px;
-
-                    button {
-                        width: 100%;
-                        align-self: center;
-                    }
-                }
+                text-align: center;
             }
 
             form {
-                width: 30%;
+                flex: 1;
+                width: 100%;
+                max-width: 500px;
                 display: flex;
                 flex-direction: column;
-                gap: 24px;
+                gap: 20px;
 
                 input,
                 textarea {
-                    padding: 16px 18px;
+                    width: 100%;
+                    padding: 18px;
                     font-size: 16px;
-                    background-color: rgba(255, 255, 255, 0.06);
-                    border: 1px solid rgba(255, 255, 255, 0.25);
-                    border-radius: 8px;
-                    color: white;
-                    transition: all 0.3s ease;
+                    background-color: $input-bg;
+                    border: 1px solid $border-light;
+                    border-radius: 12px;
+                    color: $primary-white;
                     font-family: "Barlow", sans-serif;
-
-                    &::placeholder {
-                        color: rgba(255, 255, 255, 0.6);
-                    }
+                    transition: $transition-smooth;
+                    resize: none;
 
                     &:focus {
                         outline: none;
-                        border-color: white;
-                        background-color: rgba(255, 255, 255, 0.12);
+                        border-color: $primary-white;
+                        background-color: rgba(255, 255, 255, 0.1);
                     }
-                }
-
-                textarea {
-                    height: 160px;
-                    resize: none;
                 }
 
                 button {
-                    align-self: flex-end;
+                    align-self: flex-start;
                     background-color: transparent;
-                    color: white;
-                    border: 2px solid white;
-                    border-radius: 6px;
-                    font-size: 18px;
-                    letter-spacing: 1px;
+                    color: $primary-white;
+                    border: 1.5px solid $primary-white;
+                    padding: 15px 45px;
                     cursor: pointer;
-                    padding: 14px 36px;
-                    transition: all 0.4s ease;
-                    font-family: "Oswald", sans-serif;
+                    transition: $transition-smooth;
 
-
-                    &:hover {
-                        background-color: white;
-                        color: black;
+                    @media (max-width: 1024px) {
+                        align-self: center;
+                        width: 100%;
                     }
 
-                    &:active {
-                        transform: scale(0.98);
+                    &:hover {
+                        background-color: $primary-white;
+                        color: #000;
                     }
                 }
             }
 
             .contact-info {
-                display: flex;
-                flex-direction: column;
-                gap: 28px;
+                flex: 1;
 
                 h2 {
                     font-family: "Oswald", sans-serif;
-                    font-size: 48px;
-                    font-weight: 600;
-                    letter-spacing: 3px;
+                    font-size: clamp(48px, 6vw, 72px);
                     text-transform: uppercase;
                     margin: 0;
-                    opacity: 0.95;
+
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 60px;
+                        height: 4px;
+                        background: $primary-white;
+                        margin-bottom: 20px;
+
+                        @media (max-width: 1024px) {
+                            margin: 20px auto;
+                        }
+                    }
                 }
 
                 p {
-                    font-family: "Arial", sans-serif;
-                    font-size: 18px;
-                    line-height: 1.8;
-                    opacity: 0.88;
-                    margin: 0;
-                    max-width: 580px;
+                    font-size: clamp(16px, 4vw, 20px);
                 }
             }
         }
@@ -608,9 +719,9 @@ main {
                 width: 100%;
                 height: 100%;
                 padding: 7px;
-                
+
                 h2 {
-                    font-size: clamp(40px, 12vw, 65px); 
+                    font-size: clamp(40px, 12vw, 65px);
                     text-align: center;
                     line-height: 1.1;
                     margin-bottom: 20px;
@@ -699,36 +810,6 @@ main {
         }
     }
 
-    .contact-container {
-        padding: 0 !important;
 
-        br {
-            display: none;
-        }
-
-        .contact-form {
-            padding: 40px 20px !important;
-
-            form {
-                width: 100% !important;
-                max-width: 100%;
-
-                input,
-                textarea {
-                    width: 100% !important;
-                    box-sizing: border-box;
-                }
-
-                button {
-                    width: 100%;
-                }
-            }
-
-            .contact-info {
-                width: 100% !important;
-                text-align: center;
-            }
-        }
-    }
 
 }

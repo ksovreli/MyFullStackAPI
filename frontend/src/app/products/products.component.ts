@@ -27,7 +27,7 @@ export class ProductsComponent {
     this.route.queryParams.subscribe(params => {
       this.selectedCategory = params['category'] || 'All Collections'
       this.selectedSortLabel = params['sort'] || 'Recommended'
-      
+
       this.loadFilteredProducts(this.selectedCategory, this.selectedSortLabel)
     })
   }
@@ -62,7 +62,7 @@ export class ProductsComponent {
   onOptionClick(event: Event, label: string) {
     event.stopPropagation()
     this.isDropdownOpen = false
-    
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { sort: label },

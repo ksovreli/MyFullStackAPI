@@ -47,10 +47,7 @@
         }
       </div>
 
-      <p class="description">
-        Engineered for the modern explorer, the {{ product.name }} combines
-        minimalist design with maximum durability.
-      </p>
+      <p class="description">{{product.description}}</p>
 
       <div class="actions">
         <button (click)="add(product)" class="buy-btn">
@@ -102,8 +99,26 @@
         </button>
 
         @if (isEditing) {
-        <button (click)="resetReviewForm()" class="cancel-review-btn"
-          style="background: #333; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+        <button (click)="resetReviewForm()" class="cancel-review-btn" style="
+      margin-top: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(212, 175, 55, 0.05);
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 11px 25px;
+      border-radius: 4px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    ">
+          <i class="fa-solid fa-xmark" style="font-size: 12px; filter: drop-shadow(0 0 5px #d4af37);"></i>
           <span>Cancel</span>
         </button>
         }

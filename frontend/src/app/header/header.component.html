@@ -1,72 +1,105 @@
-<header>
+<header [ngClass]="{'menu-open': menuOpen}">
     <div class="logo" (click)="navigateToHome()">
-        <h2 style="color: #A29C9C;">THE</h2>
-        <h2 style="color: #EEE6E6;">APEX</h2>
+        <h2 class="the">THE</h2>
+        <h2 class="apex">APEX</h2>
     </div>
 
     <nav [ngClass]="{'active': menuOpen}">
         <ul>
-            <li>
-                <a routerLink="/home" routerLinkActive="active-link" (click)="menuOpen = false">HOME</a>
-            </li>
-            <li>
-                <a routerLink="/products" routerLinkActive="active-link" (click)="menuOpen = false">SHOP</a>
-            </li>
-            <li>
-                <a (click)="scrollTo('about'); menuOpen = false">ABOUT</a>
-            </li>
-            <li>
-                <a (click)="scrollTo('contact'); menuOpen = false">CONTACT</a>
-            </li>
+            <li><a routerLink="/home" routerLinkActive="active-link" (click)="menuOpen = false">HOME</a></li>
+            <li><a routerLink="/products" routerLinkActive="active-link" (click)="menuOpen = false">SHOP</a></li>
+            <li><a (click)="scrollTo('about'); menuOpen = false">ABOUT</a></li>
+            <li><a (click)="scrollTo('contact'); menuOpen = false">CONTACT</a></li>
         </ul>
     </nav>
 
     <div class="header-actions">
-        <div class="user-dropdown">
-            <button class="action-btn">
-                <i class="fa-solid fa-circle-user"></i>
+
+        <div class="search-wrapper" [ngClass]="{'search-active': isSearchOpen}">
+            <input #searchInput type="text" placeholder="Search for products..." [(ngModel)]="searchQuery"
+                (input)="onSearchInput()">
+            <button class="action-btn" (click)="toggleSearch()">
+                <i class="fa-solid" [ngClass]="isSearchOpen ? 'fa-xmark' : 'fa-magnifying-glass'"></i>
             </button>
-            <div class="dropdown-menu">
-                @if (isLoggedIn()) {
-                <a routerLink="/order-history">
-                    <i class="fa-solid fa-box-open"></i> MY_ORDERS
-                </a>
 
-                @if (isAdmin()) {
-                <a routerLink="/admin" class="admin-link">
-                    <i class="fa-solid fa-terminal"></i> ADMIN_PANEL
-                </a>
+            @if (isSearchOpen && searchResults.length > 0 && searchQuery.length > 1) {
+            <div class="search-results-dropdown">
+                @for (item of searchResults; track item.id) {
+                <div class="search-item" (click)="goToProduct(item.id)">
+                    <img [src]="item.image" [alt]="item.name">
+                    <div class="item-info">
+                        <span class="item-name">{{ item.name }}</span>
+                        <span class="item-price">${{ item.price }}</span>
+                    </div>
+                </div>
                 }
-
-                <hr class="dropdown-divider">
-                <a (click)="logout()">
-                    <i class="fa-solid fa-power-off"></i> LOGOUT
-                </a>
-
-                } @else {
-                <a routerLink="/login">
-                    <i class="fa-solid fa-right-to-bracket"></i> LOGIN
-                </a>
-                <a routerLink="/register">
-                    <i class="fa-solid fa-user-plus"></i> REGISTER
-                </a>
-                }
+                <div class="view-all" (click)="viewAllResults()">VIEW ALL RESULTS</div>
             </div>
+            }
         </div>
 
         <button class="action-btn wishlist-btn" routerLink="/wishlist">
-            <span class="icon"><i class="fa-solid fa-heart"></i></span>
+            <i class="fa-solid fa-heart"></i>
             @if (wishlistCount() > 0) {
             <span class="badge">{{ wishlistCount() }}</span>
             }
         </button>
 
         <button class="action-btn cart-btn" routerLink="/cart">
-            <span class="icon"><i class="fa-solid fa-cart-arrow-down"></i></span>
+            <i class="fa-solid fa-cart-arrow-down"></i>
             @if (cartCount() > 0) {
             <span class="badge">{{ cartCount() }}</span>
             }
         </button>
+
+        <div class="user-dropdown">
+    <button class="action-btn user-trigger">
+        <i class="fa-solid fa-user-secret"></i>
+        <span class="online-indicator"></span>
+    </button>
+    
+    <div class="cyberpunk-menu">
+        <div class="menu-header">
+            <span class="terminal-prefix">ID:</span>
+            <span class="user-id">APEX_USER_10</span>
+        </div>
+
+        @if (isLoggedIn()) {
+            <a routerLink="/order-history" class="menu-item">
+                <span class="item-num">01</span>
+                <i class="fa-solid fa-box-open"></i> MY_ORDERS
+            </a>
+
+            @if (isAdmin()) {
+                <a routerLink="/admin" class="menu-item admin-link">
+                    <span class="item-num">02</span>
+                    <i class="fa-solid fa-terminal"></i> ADMIN_PANEL
+                </a>
+            }
+
+            <div class="menu-divider"></div>
+            
+            <a (click)="logout()" class="menu-item logout-link">
+                <span class="item-num">03</span>
+                <i class="fa-solid fa-power-off"></i> DISCONNECT
+            </a>
+        } @else {
+            <a routerLink="/login" class="menu-item">
+                <span class="item-num">01</span>
+                <i class="fa-solid fa-right-to-bracket"></i> AUTH_LOGIN
+            </a>
+            <a routerLink="/register" class="menu-item">
+                <span class="item-num">02</span>
+                <i class="fa-solid fa-user-plus"></i> NEW_UPLINK
+            </a>
+        }
+        
+        <div class="menu-footer">
+            <span class="scan-line"></span>
+            SYSTEM_ACCESS_GRANTED
+        </div>
+    </div>
+</div>
 
         <div class="burgerMenu" (click)="menuOpen = !menuOpen" [ngClass]="{'open': menuOpen}">
             <span></span><span></span><span></span>

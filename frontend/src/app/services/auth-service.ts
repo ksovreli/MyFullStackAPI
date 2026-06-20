@@ -1,14 +1,16 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private http = inject(HttpClient)
+  private platformId = inject(PLATFORM_ID)
   private apiUrl = 'https://localhost:7119/api/Auth'
 
   currentUser = signal<User | null>(this.getStoredUser())
@@ -23,10 +25,10 @@ export class AuthService {
   }
 
   private getStoredUser(): User | null {
+  if (isPlatformBrowser(this.platformId)) {
     const userJson = localStorage.getItem('currentUser')
-    if (!userJson) {
-      return null
-    }
+    if (!userJson) return null
+    
     try {
       return JSON.parse(userJson) as User
     }
@@ -36,6 +38,8 @@ export class AuthService {
     }
   }
 
+  return null
+}
   getToken(): string | null {
     return this.currentUser()?.token || null
   }

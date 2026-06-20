@@ -1,36 +1,44 @@
-import { Routes } from '@angular/router'
-import { inject } from '@angular/core'
-import { Router } from '@angular/router'
-import { AuthService } from './services/auth-service'
-import { HomeComponent } from './home/home.component'
-import { AdminDashboard } from './admin-dashboard/admin-dashboard'
+import { Routes } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth-service';
+import { HomeComponent } from './home/home.component';
+import { AdminDashboard } from './admin-dashboard/admin-dashboard';
+import { loginGuard } from './guards/login-guard';
+import { Login } from './login/login';
+import { Register } from './register/register';
+import { isPlatformBrowser } from '@angular/common';
+import { verifyEmailGuard } from './guards/verify-email-guard';
 
 export const authGuard = () => {
-  const authService = inject(AuthService)
-  const router = inject(Router)
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  if (authService.isLoggedIn()) {
-    return true
+  if (isPlatformBrowser(platformId)) {
+    if (authService.isLoggedIn()) {
+      return true;
+    }
+    router.navigate(['/login']);
+    return false;
+  } else {
+    return true; 
   }
-
-  router.navigate(['/login'])
-  return false
-}
+};
 
 export const adminGuard = () => {
-  const authService = inject(AuthService)
-  const router = inject(Router)
-
-  const role = authService.getUserRole()
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const role = authService.getUserRole();
 
   if (authService.isLoggedIn() && role === 'Admin') {
-    return true
+    return true;
   }
 
-  console.warn("UNAUTHORIZED_ACCESS_ATTEMPT: Redirecting to 404")
-  router.navigate(['/404'])
-  return false
-}
+  console.warn("UNAUTHORIZED_ACCESS_ATTEMPT: Redirecting to 404");
+  router.navigate(['/404']);
+  return false;
+};
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -71,16 +79,16 @@ export const routes: Routes = [
     loadComponent: () => import('./wishlist/wishlist').then(m => m.Wishlist)
   },
 
-  {
-    path: 'login',
-    title: 'Login',
-    loadComponent: () => import('./login/login').then(m => m.Login)
+  { 
+    path: 'login', 
+    component: Login,
+    canActivate: [loginGuard] 
   },
 
   {
     path: 'register',
-    title: 'Join the Peak',
-    loadComponent: () => import('./register/register').then(m => m.Register)
+    component: Register,
+    canActivate: [loginGuard]
   },
 
   {
@@ -99,7 +107,8 @@ export const routes: Routes = [
 
   {
     path: 'verify-email',
-    title: 'Verify Email',
+    title: 'Verify Email | Apex Shop',
+    canActivate: [verifyEmailGuard],
     loadComponent: () => import('./verify-email/verify-email').then(m => m.VerifyEmail)
   },
 
@@ -112,12 +121,13 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboard,
-    canActivate: [adminGuard]
+    canActivate: [adminGuard],
+    title: 'Apex Terminal | Admin'
   },
 
   {
     path: '404',
-    title: 'Not Found',
+    title: 'System Error | 404',
     loadComponent: () => import('./notfound/notfound').then(m => m.Notfound)
   },
 
@@ -125,4 +135,4 @@ export const routes: Routes = [
     path: '**',
     redirectTo: '404'
   }
-]
+];

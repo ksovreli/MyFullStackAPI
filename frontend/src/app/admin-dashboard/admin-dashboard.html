@@ -1,95 +1,160 @@
-<div class="admin-wrapper">
-    <aside class="sidebar">
-        <div class="logo">APEX_ADMIN</div>
-        <nav>
-            <a routerLink="/admin" class="nav-link active">OVERVIEW</a>
-            <a routerLink="/admin/products" class="nav-link">GEAR_DATABASE</a>
-            <a routerLink="/admin/orders" class="nav-link">DEPLOYMENTS</a>
-            <a routerLink="/admin/users" class="nav-link">OPERATIVES</a>
-        </nav>
-    </aside>
+<div class="terminal-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1 class="glitch-text" data-text="APEX">APEX</h1>
+      <span class="status-tag">ADMIN_PROTOCOL_v2.0</span>
+    </div>
 
-    <main class="content">
-        <header class="admin-header">
-            <div class="status-indicator">
-                <span class="blink-dot"></span>
-                SYSTEM_STATUS: <span class="online">OPTIMAL</span>
-            </div>
-            <div class="user-info">ADMIN_ID: #001</div>
-        </header>
+    <nav class="nav-links">
+      <a class="nav-item active"><i class="icon">▣</i> DASHBOARD</a>
+      <a class="nav-item"><i class="icon">⬢</i> INVENTORY</a>
+      <a class="nav-item"><i class="icon">◈</i> ANALYTICS</a>
+    </nav>
 
-        <div class="stats-grid">
-            <div class="stat-card glass-panel">
-                <span class="label">TOTAL_REVENUE</span>
-                <span class="value gold">${{ totalRevenue() | number:'1.2-2' }}</span>
-            </div>
+    <div class="system-stats">
+      <div class="stat-mini">
+        <label>CPU_LOAD</label>
+        <div class="bar"><div class="fill" style="width: 42%"></div></div>
+      </div>
+      <div class="user-id">USER: KSOVRELI</div>
+    </div>
+  </aside>
 
-            <div class="stat-card glass-panel">
-                <span class="label">TOTAL_DEPLOYMENTS</span>
-                <span class="value">{{ allOrders().length }}</span>
-            </div>
+  <main class="content-area">
+    <header class="data-header">
+      <div class="stat-card gold">
+        <label>TOTAL_REVENUE</label>
+        <div class="value">${{ totalRevenue() | number:'1.2-2' }}</div>
+      </div>
+      <div class="stat-card cyan">
+        <label>ACTIVE_GEAR</label>
+        <div class="value">{{ products().length }}</div>
+      </div>
+      <div class="stat-card green">
+        <label>ORDER_LOGS</label>
+        <div class="value">{{ (allOrders() || []).length }}</div>
+      </div>
+    </header>
 
-            <div class="stat-card glass-panel">
-                <span class="label">ACTIVE_OPERATIVES</span>
-                <span class="value">124</span>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>GEAR_INVENTORY</h2>
+        <button class="btn btn-primary" (click)="toggleAddForm()">
+  {{ showAddForm() ? (editingProductId() ? 'ABORT_PATCH' : 'ABORT_INJECTION') : 'ADD_NEW_ITEM' }}
+</button>
+      </div>
+
+      @if (showAddForm()) {
+        <div class="injection-form">
+          <div class="form-grid">
+            <div class="input-group">
+              <label>NAME</label>
+              <input type="text" [(ngModel)]="newProduct.name" placeholder="CORE_ID">
             </div>
+            <div class="input-group">
+              <label>PRICE_USD</label>
+              <input type="number" [(ngModel)]="newProduct.price">
+            </div>
+            <div class="input-group">
+              <label>CATEGORY_SECTOR</label>
+              <select [(ngModel)]="newProduct.categoryId">
+                @for (cat of categories(); track cat.id) {
+                  <option [value]="cat.id">{{ cat.name }}</option>
+                }
+              </select>
+            </div>
+            <div class="input-group full">
+              <label>SPEC_DESCRIPTION</label>
+              <textarea [(ngModel)]="newProduct.description"></textarea>
+            </div>
+            <div class="input-group file-upload">
+  <label>VISUAL_ASSET</label>
+  <input 
+    type="file" 
+    id="backpack-file-input" 
+    (change)="onFileSelected($event)" 
+    accept="image/*"
+  >
+  
+  @if (imagePreview()) {
+    <div class="preview-container">
+      <img [src]="imagePreview()" class="preview-thumb">
+      <button type="button" class="btn-remove" (click)="removeSelectedPhoto()">
+        ✕ REMOVE_ASSET
+      </button>
+    </div>
+  }
+</div>
+          </div>
+          <button class="btn btn-confirm" (click)="submitNewProduct()">
+            {{ editingProductId() ? 'PATCH_DATA' : 'EXECUTE_UPLOAD' }}
+          </button>
         </div>
+      }
 
-        <div class="table-container glass-panel">
-            <div class="table-header">
-                <h2>ALL_GLOBAL_LOGS</h2>
-                <div class="filters">
-                    <input type="text" placeholder="SEARCH_LOGS..." class="terminal-input" (input)="onSearch($event)">
-                </div>
-            </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>PRICE</th>
+              <th class="text-right">ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of products(); track item.id) {
+              <tr>
+                <td class="id-cell">#{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td class="gold-text">${{ item.price | number:'1.2-2' }}</td>
+                <td class="text-right">
+                  <button class="btn-icon cyan" (click)="editProduct(item)">MOD</button>
+                  <button class="btn-icon red" (click)="deleteProduct(item.id, item.name || 'Unknown')">DEL</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>TRANS_ID</th>
-                        <th>USER_ID</th>
-                        <th>DATE</th>
-                        <th>CREDITS</th>
-                        <th>STATUS</th>
-                        <th>ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (order of filteredOrders(); track order.id) {
-                    <tr>
-                        <td class="gold">#{{ order.id }}</td>
-                        <td>
-                            <div class="operative-info">
-                                <span class="gold">{{ order.user?.userName || 'UNKNOWN' }}</span>
-                                <small style="display:block; font-size: 10px; color: #555;">ID: #{{ order.userId
-                                    }}</small>
-                            </div>
-                        </td>
-                        <td>{{ order.orderDate | date:'short' }}</td>
-                        <td class="gold">${{ order.totalPrice | number:'1.2-2' }}</td>
-                        <td>
-                            <span class="status-badge" [attr.data-status]="order.status">
-                                {{ order.status }}
-                            </span>
-                        </td>
-                        <td>
-                            <button class="btn-action" (click)="updateStatus(order.id, order.status)">UPDATE</button>
-                        </td>
-                    </tr>
-                    } @empty {
-                    <tr>
-                        <td colspan="6" style="text-align: center; color: #444; padding: 40px;">
-                            NO_RECORDS_FOUND_IN_DATABASE
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>TRANSACTION_LOGS</h2>
+        <input type="text" class="search-field" placeholder="FILTER_BY_USER_ID..." (input)="onSearch($event)">
+      </div>
 
-        <div class="terminal-footer glass-panel">
-            <span class="prompt">></span>
-            <span class="log-text">SYS_READY: Monitoring live transaction stream...</span>
-        </div>
-    </main>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ORDER_ID</th>
+              <th>OPERATIVE</th>
+              <th>STATUS</th>
+              <th>TOTAL</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (order of filteredOrders(); track order.id) {
+              <tr>
+                <td class="id-cell">{{ order.id }}</td>
+                <td>{{ order.user?.userName }}</td>
+                <td>
+                  <span class="status-pill" [attr.data-status]="order.status">
+                    {{ order.status }}
+                  </span>
+                </td>
+                <td class="gold-text">${{ order.totalPrice | number:'1.2-2' }}</td>
+                <td>
+                  <button class="btn-icon" (click)="updateStatus(order.id, order.status)">STATUS_UPDATE</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 </div>

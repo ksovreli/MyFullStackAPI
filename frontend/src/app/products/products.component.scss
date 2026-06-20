@@ -6,7 +6,7 @@ $border-hover: #5c4b2a;
 
 $gold-primary: #d4af37;
 $gold-glow: #ffcc33;
-$gold-muted: #8a6d3b;
+$gold-muted: #ff4d4d;
 
 $accent: $gold-primary;
 $text-main: #ffffff;
@@ -128,7 +128,7 @@ $transition-smooth: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                     padding: 0;
                     z-index: 50;
                     animation: fadeIn 0.2s ease-out;
-                    
+
                     max-height: 200px; // Adjust this based on how many items you want visible
                     overflow-y: auto;
                     overflow-x: hidden;
@@ -145,11 +145,12 @@ $transition-smooth: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                     &::-webkit-scrollbar-thumb {
                         background: $gold-muted;
                         border-radius: 2px;
-                        
+
                         &:hover {
                             background: $gold-primary;
                             box-shadow: 0 0 5px $gold-glow;
-                        }}
+                        }
+                    }
 
                     li {
                         padding: 12px 15px;
@@ -280,9 +281,9 @@ $transition-smooth: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                     .star {
                         font-size: 18px;
                         font-family: 'Barlow', sans-serif;
-                        
-                        &.full { 
-                            color: $gold-primary; 
+
+                        &.full {
+                            color: $gold-primary;
                             text-shadow: 0 0 8px rgba($gold-glow, 0.4);
                         }
 
@@ -300,9 +301,9 @@ $transition-smooth: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
                         }
                     }
 
-                    .rating-value { 
-                        color: $text-muted; 
-                        font-size: 14px; 
+                    .rating-value {
+                        color: $text-muted;
+                        font-size: 14px;
                         margin-left: 5px;
                     }
                 }
@@ -338,6 +339,7 @@ $transition-smooth: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         opacity: 0;
         transform: translateY(-5px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
