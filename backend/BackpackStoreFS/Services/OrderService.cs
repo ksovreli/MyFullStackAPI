@@ -72,7 +72,7 @@ namespace BackpackStoreFS.Services
 
                 return order;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 return null;

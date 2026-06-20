@@ -41,5 +41,25 @@ namespace BackpackStoreFS.Controllers
 
             return Ok($"{email} is now an Admin.");
         }
+
+        [HttpPost("demote/{email}")]
+        public async Task<IActionResult> DemoteUser(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return NotFound("USER_NOT_FOUND");
+
+            var result = await userManager.RemoveFromRoleAsync(user, "Admin");
+
+            if (result.Succeeded)
+            {
+                user.Role = "User";
+                await userManager.UpdateAsync(user);
+
+                await userManager.UpdateSecurityStampAsync(user);
+                return Ok(new { message = "DEMOTED_SUCCESSFULLY" });
+            }
+
+            return BadRequest(result.Errors);
+        }
     }
 }

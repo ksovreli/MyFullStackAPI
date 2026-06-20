@@ -47,31 +47,34 @@ namespace BackpackStoreFS.Services
         {
             var backpack = await context.Backpacks
                 .Include(b => b.Images)
-                .Include(b => b.Ratings)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
-            if (backpack == null)
-            {
-                return false;
-            }
+            if (backpack == null) return false;
 
             backpack.Name = dto.Name;
+            backpack.Description = dto.Description;
             backpack.Price = dto.Price;
             backpack.Quantity = dto.Quantity;
-            backpack.SalePrice = dto.SalePrice;
             backpack.CategoryId = dto.CategoryId;
             backpack.IsNew = dto.IsNew;
+            backpack.SalePrice = dto.SalePrice;
 
-            if (backpack.Images.FirstOrDefault()?.Url != dto.ImageUrl)
+            if (!string.IsNullOrWhiteSpace(dto.ImageUrl))
             {
-                backpack.Images.Clear();
-                backpack.Images.Add(new BackpackImage { Url = dto.ImageUrl });
+                var currentImage = backpack.Images.FirstOrDefault();
+                if (currentImage == null)
+                {
+                    backpack.Images.Add(new BackpackImage { Url = dto.ImageUrl });
+                }
+                else if (currentImage.Url != dto.ImageUrl)
+                {
+                    currentImage.Url = dto.ImageUrl;
+                }
             }
 
             await context.SaveChangesAsync();
             return true;
         }
-
         public async Task<bool> DeleteAsync(int id)
         {
             var backpack = await context.Backpacks.FindAsync(id);
@@ -124,6 +127,7 @@ namespace BackpackStoreFS.Services
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,
+                Description = p.Description,
                 SalePrice = p.SalePrice,
                 IsNew = p.IsNew,
 
@@ -146,6 +150,7 @@ namespace BackpackStoreFS.Services
             Name = b.Name,
             Image = b.Images.FirstOrDefault()?.Url ?? "placeholder.png",
             Price = b.Price,
+            Description = b.Description,
             Quantity = b.Quantity,
             SalePrice = b.SalePrice,
             IsNew = b.IsNew,

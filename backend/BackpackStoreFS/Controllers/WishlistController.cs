@@ -9,7 +9,6 @@ namespace BackpackStoreFS.Controllers
     [ApiController]
     public class WishlistController(IWishlistService wishlistService) : ControllerBase
     {
-
         [HttpGet("{userId}")]
         public async Task<ActionResult<IEnumerable<Backpack>>> GetWishlist(int userId)
         {

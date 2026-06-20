@@ -18,6 +18,11 @@ namespace BackpackStoreFS.Models.Entities
         public decimal Price { get; set; }
 
         [Required]
+        [MaxLength(1000)]
+        [Column("description")]
+        public string Description { get; set; } = null!;
+
+        [Required]
         [Column("quantity")]
         [Range(0, 100)]
         public int Quantity { get; set; }
@@ -48,6 +53,7 @@ namespace BackpackStoreFS.Models.Entities
         {
             Name = dto.Name;
             Price = dto.Price;
+            Description = dto.Description;
             Quantity = dto.Quantity;
             SalePrice = dto.SalePrice;
             CategoryId = dto.CategoryId;

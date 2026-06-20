@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -54,20 +56,15 @@ string connectionString = builder.Configuration.GetConnectionString("BackpackSto
     ?? throw new InvalidOperationException("Connection string 'BackpackStoreDB' not found.");
 
 builder.Services.AddDbContext<BackpackContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
     options.Password.RequiredLength = 6;
-
     options.Password.RequireDigit = true;
-
     options.Password.RequireUppercase = true;
-
     options.Password.RequireLowercase = true;
-
     options.Password.RequireNonAlphanumeric = true;
-
     options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<BackpackContext>()
@@ -92,7 +89,6 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-
         NameClaimType = ClaimTypes.Name,
         RoleClaimType = ClaimTypes.Role
     };
@@ -111,7 +107,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
         policy => policy
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins("http://localhost:4200", "https://apexstores.netlify.app")
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
@@ -131,7 +127,8 @@ using (var scope = app.Services.CreateScope())
         {
             await roleManager.CreateAsync(new IdentityRole<int>
             {
-                Name = roleName
+                Name = roleName,
+                NormalizedName = roleName.ToUpper()
             });
         }
     }
@@ -143,10 +140,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
-
-app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

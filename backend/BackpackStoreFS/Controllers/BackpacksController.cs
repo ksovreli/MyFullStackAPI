@@ -1,68 +1,116 @@
 ﻿using BackpackStoreFS.Models.DTOs;
 using BackpackStoreFS.Models.Entities;
 using BackpackStoreFS.ServiceContracts;
-using BackpackStoreFS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackpackStoreFS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BackpacksController(IBackpackService backpackService) : ControllerBase
+    public class BackpacksController(IBackpackService backpackService, ILogger<BackpacksController> logger) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BackpackReadDto>>> GetBackpacks()
         {
-            var result = await backpackService.GetAllAsync();
-            return Ok(result);
+            try
+            {
+                var result = await backpackService.GetAllAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while fetching all backpacks.");
+                return StatusCode(500, new { message = "An internal server error occurred." });
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<BackpackReadDto>> GetBackpack(int id)
         {
-            var result = await backpackService.GetByIdAsync(id);
-
-            if (result != null)
+            try
             {
-                return Ok(result);
+                var result = await backpackService.GetByIdAsync(id);
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound(new { message = $"Backpack with ID {id} not found." });
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while fetching backpack with ID {0}.", id);
+                return StatusCode(500, new { message = "An internal server error occurred." });
+            }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<Backpack>> CreateBackpack([FromForm] BackpackCreateDto dto)
+        public async Task<ActionResult<Backpack>> CreateBackpack([FromBody] BackpackCreateDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await backpackService.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetBackpack), new { id = result.Id }, result);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBackpack(int id, BackpackCreateDto dto)
-        {
-            var success = await backpackService.UpdateAsync(id, dto);
-
-            if (success)
+            try
             {
-                return NoContent();
+                var result = await backpackService.CreateAsync(dto);
+                return CreatedAtAction(nameof(GetBackpack), new { id = result.Id }, result);
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while creating a backpack.");
+                return StatusCode(500, new { message = "Could not create backpack due to a server error." });
+            }
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBackpack(int id, [FromBody] BackpackCreateDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var success = await backpackService.UpdateAsync(id, dto);
+
+                if (success)
+                {
+                    return NoContent();
+                }
+                return NotFound(new { message = $"Backpack with ID {id} not found for update." });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while updating backpack with ID {0}.", id);
+                return StatusCode(500, new { message = "An internal server error occurred." });
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBackpack(int id)
         {
-            var success = await backpackService.DeleteAsync(id);
-
-            if (success)
+            try
             {
-                return NoContent();
+                var success = await backpackService.DeleteAsync(id);
+
+                if (success)
+                {
+                    return NoContent();
+                }
+                return NotFound(new { message = $"Backpack with ID {id} not found for deletion." });
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while deleting backpack with ID {0}.", id);
+                return StatusCode(500, new { message = "An internal server error occurred." });
+            }
         }
 
         [HttpGet("filter")]
@@ -70,8 +118,16 @@ namespace BackpackStoreFS.Controllers
             [FromQuery] string? category,
             [FromQuery] string? sortBy)
         {
-            var results = await backpackService.GetFilteredAsync(category, sortBy);
-            return Ok(results);
+            try
+            {
+                var results = await backpackService.GetFilteredAsync(category, sortBy);
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while filtering backpacks.");
+                return StatusCode(500, new { message = "An internal server error occurred." });
+            }
         }
     }
 }

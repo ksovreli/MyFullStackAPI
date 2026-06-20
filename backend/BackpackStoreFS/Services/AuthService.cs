@@ -19,6 +19,11 @@ namespace BackpackStoreFS.Services
         IEmailService emailService
         ) : IAuthService
     {
+        private const string EmailBg = "#050505";
+        private const string CardBg = "#0d0d12";
+        private const string AccentColor = "#00ff88";
+        private const string GoldColor = "#d4af37";
+
         public async Task<UserReadDto?> RegisterAsync(UserCreateDto dto)
         {
             var user = new User
@@ -29,22 +34,23 @@ namespace BackpackStoreFS.Services
             };
 
             var result = await userManager.CreateAsync(user, dto.Password);
-
             if (!result.Succeeded) return null;
 
             var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = $"{configuration["AppUrl"]}/verify-email?token={Uri.EscapeDataString(token)}&email={user.Email}";
 
             var message = $@"
-                <div style='background-color: #050505; padding: 40px 20px; font-family: sans-serif; text-align: center;'>
-                    <div style='max-width: 400px; margin: 0 auto; background: #0d0d12; border: 1px solid #1a1a1a; border-top: 4px solid #d4af37; padding: 30px; border-radius: 8px;'>
-                        <h2 style='color: #ffffff;'>WELCOME_OPERATIVE_{user.UserName?.ToUpper()}</h2>
-                        <p style='color: #a29c9c; font-size: 14px;'>Confirm your coordinates to activate your profile.</p>
-                        <a href='{confirmationLink}' style='display: inline-block; background: #d4af37; color: #000; padding: 12px 25px; text-decoration: none; font-weight: bold; margin: 20px 0;'>ACTIVATE_ACCOUNT</a>
+                <div style='background-color: {EmailBg}; padding: 50px 20px; font-family: ""Segoe UI"", Tahoma, sans-serif; text-align: center;'>
+                    <div style='max-width: 450px; margin: 0 auto; background: {CardBg}; border: 1px solid #1a1a1a; border-top: 4px solid {GoldColor}; padding: 40px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);'>
+                        <div style='text-transform: uppercase; letter-spacing: 5px; font-size: 10px; color: {GoldColor}; margin-bottom: 20px; font-weight: bold;'>New Operator Detected</div>
+                        <h2 style='color: #ffffff; font-size: 26px; margin: 0;'>WELCOME <span style='color: {GoldColor};'>{user.UserName?.ToUpper()}</span></h2>
+                        <p style='color: #a29c9c; font-size: 14px; line-height: 1.6; margin: 20px 0;'>Your account has been provisioned. Finalize the uplink to activate your profile.</p>
+                        <a href='{confirmationLink}' style='display: inline-block; background: {GoldColor}; color: #000; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;'>Establish Connection</a>
+                        <p style='color: #444; font-size: 11px; margin-top: 30px;'>&copy; {DateTime.Now.Year} APEX STORE FS. Secure Environment.</p>
                     </div>
                 </div>";
 
-            await emailService.SendEmailAsync(user.Email!, "Account Activation Required", message);
+            await emailService.SendEmailAsync(user.Email!, "Uplink Required: Activate Account", message);
 
             return MapToReadDto(user);
         }
@@ -52,26 +58,11 @@ namespace BackpackStoreFS.Services
         public async Task<UserReadDto?> LoginAsync(UserLoginDto dto)
         {
             var user = await userManager.FindByEmailAsync(dto.Email);
-            if (user == null)
-            {
-                Console.WriteLine("--- LOGIN DEBUG: User not found ---");
-                return null;
-            }
-
-            if (!await userManager.IsEmailConfirmedAsync(user))
-            {
-                Console.WriteLine("--- LOGIN DEBUG: Email NOT confirmed! ---");
-                return null;
-            }
+            if (user == null || !await userManager.IsEmailConfirmedAsync(user)) return null;
 
             var result = await signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if (!result.Succeeded)
-            {
-                Console.WriteLine($"--- LOGIN DEBUG: Password check failed. Succeeded: {result.Succeeded} ---");
-                return null;
-            }
+            if (!result.Succeeded) return null;
 
-            Console.WriteLine("--- LOGIN DEBUG: SUCCESS! ---");
             var readDto = MapToReadDto(user);
             readDto.Token = GenerateToken(user);
             return readDto;
@@ -80,14 +71,9 @@ namespace BackpackStoreFS.Services
         public async Task<bool> ConfirmEmailAsync(string email, string token)
         {
             var user = await userManager.FindByEmailAsync(email);
-
-            if (user == null)
-            {
-                return false;
-            }
+            if (user == null) return false;
 
             var result = await userManager.ConfirmEmailAsync(user, token);
-
             return result.Succeeded;
         }
 
@@ -98,6 +84,7 @@ namespace BackpackStoreFS.Services
 
             var code = new Random().Next(100000, 999999).ToString();
 
+            // ძველი კოდების გასუფთავება
             var oldCodes = context.PasswordResetCodes.Where(c => c.Email == email);
             context.PasswordResetCodes.RemoveRange(oldCodes);
 
@@ -105,39 +92,30 @@ namespace BackpackStoreFS.Services
             {
                 Email = email,
                 Code = code,
-                ExpiryTime = DateTime.UtcNow.AddMinutes(10)
+                ExpiryTime = DateTime.UtcNow.AddHours(24) // 24 საათიანი ვადა
             });
 
             await context.SaveChangesAsync();
 
             var message = $@"
-                <div style='background-color: #050505; padding: 40px 20px; font-family: ""Segoe UI"", Roboto, Helvetica, Arial, sans-serif; text-align: center; border-radius: 12px;'>
-                    <div style='max-width: 400px; margin: 0 auto; background: #0d0d12; border: 1px solid #1a1a1a; border-top: 4px solid #00ff88; padding: 30px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);'>
+                <div style='background-color: {EmailBg}; padding: 50px 20px; font-family: ""JetBrains Mono"", monospace, sans-serif; text-align: center;'>
+                    <div style='max-width: 450px; margin: 0 auto; background: {CardBg}; border: 1px solid #1a1a1a; border-top: 4px solid {AccentColor}; padding: 40px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);'>
+                        <div style='text-transform: uppercase; letter-spacing: 4px; font-size: 11px; color: {AccentColor}; margin-bottom: 20px; font-weight: bold;'>Security Override Protocol</div>
+                        <h2 style='color: #ffffff; font-size: 24px; font-weight: 300; margin: 0;'>APEX <span style='color: {AccentColor}; font-weight: 800;'>SECURE</span></h2>
+                        <p style='color: #a29c9c; font-size: 13px; margin: 20px 0;'>Authentication required for password reassignment. Use the terminal key below:</p>
                         
-                        <div style='text-transform: uppercase; letter-spacing: 3px; font-size: 12px; color: #00ff88; margin-bottom: 20px; font-weight: bold;'>
-                            System Authentication
+                        <div style='background: rgba(0, 255, 136, 0.03); border: 1px dashed rgba(0, 255, 136, 0.3); padding: 25px; margin: 25px 0;'>
+                            <h1 style='color: {AccentColor}; letter-spacing: 15px; font-size: 40px; margin: 0;'>{code}</h1>
                         </div>
-                        
-                        <h2 style='color: #ffffff; margin: 0 0 10px 0; font-size: 24px; font-weight: 300;'>APEX <span style='color: #00ff88; font-weight: 800;'>STORE</span></h2>
-                        
-                        <p style='color: #a29c9c; font-size: 14px; line-height: 1.5;'>A request was made to access your account. Use the secure passkey below to proceed.</p>
-                        
-                        <div style='background: rgba(0, 255, 136, 0.05); border: 1px dashed rgba(0, 255, 136, 0.3); margin: 30px 0; padding: 20px; border-radius: 4px;'>
-                            <h1 style='color: #00ff88; letter-spacing: 12px; font-size: 38px; margin: 0; font-family: monospace;'>{code}</h1>
-                        </div>
-                        
-                        <p style='color: #666; font-size: 11px; margin-bottom: 0;'>
-                            This code will expire in <span style='color: #00ff88;'>10 minutes</span>.<br>
-                            If you did not request this, please ignore this email.
+
+                        <p style='color: #555; font-size: 11px;'>
+                            Key TTL: <span style='color: {AccentColor};'>24 Hours</span>. 
+                            If you did not initiate this, secure your terminal immediately.
                         </p>
-                    </div>
-                    
-                    <div style='margin-top: 20px; color: #444; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;'>
-                        &copy; {DateTime.Now.Year} Apex Store Terminal. All Rights Reserved.
                     </div>
                 </div>";
 
-            await emailService.SendEmailAsync(email, "Your Access Code", message);
+            await emailService.SendEmailAsync(email, "Apex Security: Access Key", message);
             return true;
         }
 
@@ -146,33 +124,24 @@ namespace BackpackStoreFS.Services
             var codeRecord = await context.PasswordResetCodes
                 .FirstOrDefaultAsync(c => c.Email == dto.Email && c.Code == dto.Token && c.ExpiryTime > DateTime.UtcNow);
 
-            if (codeRecord == null)
-            {
-                return false;
-            }
+            if (codeRecord == null) return false;
 
             var user = await userManager.FindByEmailAsync(dto.Email);
-            if (user == null)
-            {
-                return false;
-            }
+            if (user == null) return false;
 
             using var transaction = await context.Database.BeginTransactionAsync();
             try
             {
                 var internalToken = await userManager.GeneratePasswordResetTokenAsync(user);
-
                 var result = await userManager.ResetPasswordAsync(user, internalToken, dto.NewPassword);
 
                 if (result.Succeeded)
                 {
                     context.PasswordResetCodes.Remove(codeRecord);
                     await context.SaveChangesAsync();
-
                     await transaction.CommitAsync();
                     return true;
                 }
-
                 return false;
             }
             catch
@@ -181,6 +150,7 @@ namespace BackpackStoreFS.Services
                 return false;
             }
         }
+
         private string GenerateToken(User user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
@@ -210,7 +180,6 @@ namespace BackpackStoreFS.Services
         {
             var user = await userManager.FindByIdAsync(userId);
             if (user == null) return false;
-
             var result = await userManager.DeleteAsync(user);
             return result.Succeeded;
         }

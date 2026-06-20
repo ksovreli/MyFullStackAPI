@@ -4,6 +4,7 @@ using BackpackStoreFS.ServiceContracts;
 using BackpackStoreFS.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BackpackStoreFS.Controllers
 {
@@ -12,9 +13,17 @@ namespace BackpackStoreFS.Controllers
     [ApiController]
     public class BasketController(IBasketService basketService) : ControllerBase
     {
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<BasketItemReadDto>>> GetBasket(int userId)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BasketItemReadDto>>> GetBasket()
         {
+            var userIdString = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)
+                               ?? User.FindFirstValue("sub");
+
+            if (!int.TryParse(userIdString, out int userId))
+            {
+                return Unauthorized("მომხმარებლის ID ტოკენში არასწორია ან არ არსებობს.");
+            }
+
             var basket = await basketService.GetUserBasketAsync(userId);
             return Ok(basket);
         }

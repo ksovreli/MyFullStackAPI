@@ -40,21 +40,21 @@ namespace BackpackStoreFS.Data
             );
 
             modelBuilder.Entity<Backpack>().HasData(
-                new Backpack { Id = 1, Name = "APEX COMMUTER", Price = 90, Quantity = 10, SalePrice = 65, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 2, Name = "APEX HERITAGE", Price = 75, Quantity = 12, CategoryId = 1, IsNew = true },
-                new Backpack { Id = 3, Name = "APEX PULSE", Price = 80, Quantity = 8, CategoryId = 1, IsNew = true },
-                new Backpack { Id = 4, Name = "APEX STEALTH", Price = 110, Quantity = 6, SalePrice = 95, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 5, Name = "APEX SKYLINE", Price = 95, Quantity = 9, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 6, Name = "APEX GLOBAL", Price = 120, Quantity = 5, SalePrice = 85, CategoryId = 1, IsNew = false },
-                new Backpack { Id = 7, Name = "APEX CROSSOVER", Price = 95, Quantity = 7, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 8, Name = "APEX EXECUTIVE", Price = 150, Quantity = 4, SalePrice = 115, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 9, Name = "APEX IGNITE", Price = 85, Quantity = 11, CategoryId = 2, IsNew = true },
-                new Backpack { Id = 10, Name = "APEX TRANSFORMER", Price = 110, Quantity = 6, SalePrice = 89, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 11, Name = "APEX LEGACY", Price = 85, Quantity = 10, CategoryId = 2, IsNew = false },
-                new Backpack { Id = 12, Name = "APEX ODYSSEY", Price = 160, Quantity = 3, SalePrice = 130, CategoryId = 3, IsNew = false },
-                new Backpack { Id = 13, Name = "APEX VOYAGER", Price = 145, Quantity = 5, CategoryId = 3, IsNew = true },
-                new Backpack { Id = 14, Name = "APEX SUMMIT", Price = 130, Quantity = 4, CategoryId = 3, IsNew = false },
-                new Backpack { Id = 15, Name = "APEX CYBER", Price = 180, Quantity = 2, SalePrice = 149, CategoryId = 3, IsNew = false }
+                new Backpack { Id = 1, Name = "APEX COMMUTER", Price = 90, Quantity = 10, SalePrice = 65, CategoryId = 1, IsNew = false, Description = "Engineered for the modern explorer, the APEX COMMUTER combines minimalist design with maximum durability." },
+                new Backpack { Id = 2, Name = "APEX HERITAGE", Price = 75, Quantity = 12, CategoryId = 1, IsNew = true, Description = "Engineered for the modern explorer, the APEX HERITAGE combines minimalist design with maximum durability." },
+                new Backpack { Id = 3, Name = "APEX PULSE", Price = 80, Quantity = 8, CategoryId = 1, IsNew = true, Description = "Engineered for the modern explorer, the APEX PULSE combines minimalist design with maximum durability." },
+                new Backpack { Id = 4, Name = "APEX STEALTH", Price = 110, Quantity = 6, SalePrice = 95, CategoryId = 1, IsNew = false, Description = "Engineered for the modern explorer, the APEX STEALTH combines minimalist design with maximum durability." },
+                new Backpack { Id = 5, Name = "APEX SKYLINE", Price = 95, Quantity = 9, CategoryId = 1, IsNew = false, Description = "Engineered for the modern explorer, the APEX SKYLINE combines minimalist design with maximum durability." },
+                new Backpack { Id = 6, Name = "APEX GLOBAL", Price = 120, Quantity = 5, SalePrice = 85, CategoryId = 1, IsNew = false, Description = "Engineered for the modern explorer, the APEX GLOBAL combines minimalist design with maximum durability." },
+                new Backpack { Id = 7, Name = "APEX CROSSOVER", Price = 95, Quantity = 7, CategoryId = 2, IsNew = false, Description = "Engineered for the modern explorer, the APEX CROSSOVER combines minimalist design with maximum durability." },
+                new Backpack { Id = 8, Name = "APEX EXECUTIVE", Price = 150, Quantity = 4, SalePrice = 115, CategoryId = 2, IsNew = false, Description = "Engineered for the modern explorer, the APEX EXECUTIVE combines minimalist design with maximum durability." },
+                new Backpack { Id = 9, Name = "APEX IGNITE", Price = 85, Quantity = 11, CategoryId = 2, IsNew = true, Description = "Engineered for the modern explorer, the APEX IGNITE combines minimalist design with maximum durability." },
+                new Backpack { Id = 10, Name = "APEX TRANSFORMER", Price = 110, Quantity = 6, SalePrice = 89, CategoryId = 2, IsNew = false, Description = "Engineered for the modern explorer, the APEX TRANSFORMER combines minimalist design with maximum durability." },
+                new Backpack { Id = 11, Name = "APEX LEGACY", Price = 85, Quantity = 10, CategoryId = 2, IsNew = false, Description = "Engineered for the modern explorer, the APEX LEGACY combines minimalist design with maximum durability." },
+                new Backpack { Id = 12, Name = "APEX ODYSSEY", Price = 160, Quantity = 3, SalePrice = 130, CategoryId = 3, IsNew = false, Description = "Engineered for the modern explorer, the APEX ODYSSEY combines minimalist design with maximum durability." },
+                new Backpack { Id = 13, Name = "APEX VOYAGER", Price = 145, Quantity = 5, CategoryId = 3, IsNew = true, Description = "Engineered for the modern explorer, the APEX VOYAGER combines minimalist design with maximum durability." },
+                new Backpack { Id = 14, Name = "APEX SUMMIT", Price = 130, Quantity = 4, CategoryId = 3, IsNew = false, Description = "Engineered for the modern explorer, the APEX SUMMIT combines minimalist design with maximum durability." },
+                new Backpack { Id = 15, Name = "APEX CYBER", Price = 180, Quantity = 2, SalePrice = 149, CategoryId = 3, IsNew = false, Description = "Engineered for the modern explorer, the APEX CYBER combines minimalist design with maximum durability." }
             );
 
             modelBuilder.Entity<BackpackImage>().HasData(
