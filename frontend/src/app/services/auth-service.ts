@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private http = inject(HttpClient)
   private platformId = inject(PLATFORM_ID)
-  private apiUrl = 'https://localhost:7119/api/Auth'
+  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Auth';
 
   currentUser = signal<User | null>(this.getStoredUser())
   isLoggedIn = signal<boolean>(!!this.currentUser())

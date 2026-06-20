@@ -11,7 +11,7 @@ export class WishlistService {
 
   private http = inject(HttpClient)
   private auth = inject(AuthService)
-  private apiUrl = 'https://localhost:7119/api/Wishlist'
+  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Wishlist'
   private alertService = inject(AlertService)
 
   items = signal<Product[]>([])

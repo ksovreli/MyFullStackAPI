@@ -14,7 +14,7 @@ export class CartService {
 
   private http = inject(HttpClient)
   private auth = inject(AuthService)
-  private apiUrl = 'https://localhost:7119/api/Basket'
+  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Basket';
   private alertService = inject(AlertService)
   public router = inject(Router)
 

@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7119/api'
+  apiUrl: 'https://apex-store-api-aj1b.onrender.com/api'
 };

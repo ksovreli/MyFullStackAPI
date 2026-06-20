@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://localhost:7119/api/Backpacks'
+  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Backpacks';
   private http = inject(HttpClient)
   
   getProducts(): Observable<Product[]> {

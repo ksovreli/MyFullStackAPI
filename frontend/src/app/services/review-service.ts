@@ -10,7 +10,7 @@ import { first, tap } from 'rxjs';
 export class ReviewService {
   private http = inject(HttpClient)
   private auth = inject(AuthService)
-  private apiUrl = 'https://localhost:7119/api/Review'
+  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Review';
 
   reviews = signal<Review[]>([])
 

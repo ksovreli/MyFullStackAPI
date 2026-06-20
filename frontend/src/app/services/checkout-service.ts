@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CheckoutService {
   private http = inject(HttpClient)
 
-  private apiUrl = 'https://localhost:7119/api/Orders'
+  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Orders';
 
   placeOrder(request: { shippingAddress: string }): Observable<Order> {
     return this.http.post<Order>(`${this.apiUrl}/checkout`, request)
