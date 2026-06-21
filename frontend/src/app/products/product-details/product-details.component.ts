@@ -11,6 +11,7 @@ import { Review } from '../../models/review';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertService } from '../../services/alert-service';
 import { Location } from '@angular/common';
+import { environment } from '../../../environment';
 
 @Component({
   selector: 'app-product-details',
@@ -60,7 +61,7 @@ export class ProductDetailsComponent {
 
   loadReviews(id: number) {
     this.currentUsername = this.authService.getUsername()
-    this.http.get<Review[]>(`https://localhost:7119/api/Review/backpack/${id}`)
+    this.http.get<Review[]>(`${environment.apiUrl}/Review/backpack/${id}`)
       .subscribe({
         next: (data) => {
           this.reviews = data
@@ -104,7 +105,7 @@ export class ProductDetailsComponent {
     }
 
     if (this.isEditing && this.editingReviewId) {
-      this.http.put(`https://localhost:7119/api/Review/${this.editingReviewId}`, reviewPayload, { headers })
+      this.http.put(`${environment.apiUrl}/Review/${this.editingReviewId}`, reviewPayload, { headers })
         .subscribe({
           next: () => {
             this.alertService.success('Review updated successfully!')
@@ -114,7 +115,7 @@ export class ProductDetailsComponent {
           error: (err) => console.error(err)
         })
     } else {
-      this.http.post<Review>('https://localhost:7119/api/Review', reviewPayload, { headers })
+      this.http.post<Review>(`${environment.apiUrl}/Review`, reviewPayload, { headers })
         .subscribe({
           next: (savedReview) => {
             this.reviews.unshift(savedReview)
@@ -142,7 +143,7 @@ export class ProductDetailsComponent {
       const token = this.authService.getToken()
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
-      this.http.delete(`https://localhost:7119/api/Review/${id}`, { headers })
+      this.http.delete(`${environment.apiUrl}/Review/${id}`, { headers })
         .subscribe({
           next: () => {
             this.alertService.success('Review deleted.')

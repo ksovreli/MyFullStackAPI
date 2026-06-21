@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Order } from '../models/order';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class CheckoutService {
   private http = inject(HttpClient)
 
-  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Orders';
+  private apiUrl = `${environment.apiUrl}/Orders`;
 
   placeOrder(request: { shippingAddress: string }): Observable<Order> {
     return this.http.post<Order>(`${this.apiUrl}/checkout`, request)

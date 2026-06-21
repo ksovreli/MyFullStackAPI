@@ -13,15 +13,13 @@ import { CommonModule } from '@angular/common';
 })
 export class Register {
   private authService = inject(AuthService)
-  private cartService = inject(CartService)
-  private router = inject(Router)
 
-  regData = {
-    username: '',
-    email: '',
-    password: ''
-  }
-
+// register.ts
+regData = {
+  Username: '', // დიდი U
+  Email: '',    // დიდი E
+  Password: ''  // დიდი P
+}
   serverErrors = signal<string[]>([])
   registrationComplete = signal(false)
 

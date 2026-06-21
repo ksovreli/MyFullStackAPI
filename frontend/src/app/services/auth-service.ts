@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import { Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private http = inject(HttpClient)
   private platformId = inject(PLATFORM_ID)
-  private apiUrl = 'https://apex-store-api-aj1b.onrender.com/api/Auth';
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   currentUser = signal<User | null>(this.getStoredUser())
   isLoggedIn = signal<boolean>(!!this.currentUser())
@@ -25,21 +26,21 @@ export class AuthService {
   }
 
   private getStoredUser(): User | null {
-  if (isPlatformBrowser(this.platformId)) {
-    const userJson = localStorage.getItem('currentUser')
-    if (!userJson) return null
-    
-    try {
-      return JSON.parse(userJson) as User
-    }
-    catch {
-      localStorage.removeItem('currentUser')
-      return null
-    }
-  }
+    if (isPlatformBrowser(this.platformId)) {
+      const userJson = localStorage.getItem('currentUser')
+      if (!userJson) return null
 
-  return null
-}
+      try {
+        return JSON.parse(userJson) as User
+      }
+      catch {
+        localStorage.removeItem('currentUser')
+        return null
+      }
+    }
+
+    return null
+  }
   getToken(): string | null {
     return this.currentUser()?.token || null
   }
@@ -48,10 +49,13 @@ export class AuthService {
     return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
       tap(user => this.saveSession(user))
     )
+    
   }
 
-  register(credentials: any): Observable<User> {
-  return this.http.post<User>(`${this.apiUrl}/register`, credentials);
+  // auth-service.ts
+register(credentials: any): Observable<User> {
+  const headers = { 'Content-Type': 'application/json' };
+  return this.http.post<User>(`${this.apiUrl}/register`, credentials, { headers });
 }
 
   verifyEmail(email: string, token: string): Observable<any> {

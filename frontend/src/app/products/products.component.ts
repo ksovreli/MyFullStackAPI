@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../models/product';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environment';
 
 @Component({
   selector: 'app-products',
@@ -16,7 +17,7 @@ export class ProductsComponent {
   private route = inject(ActivatedRoute)
   private router = inject(Router)
 
-  private apiUrl = 'https://localhost:7119/api/Backpacks'
+  private apiUrl = `${environment.apiUrl}/Backpacks`
 
   filteredProducts: Product[] = []
   selectedCategory: string = 'All Collections'
