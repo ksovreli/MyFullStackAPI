@@ -26,15 +26,19 @@ namespace BackpackStoreFS.Services
 
         public async Task<UserReadDto?> RegisterAsync(UserCreateDto dto)
         {
-            var user = new User
-            {
-                UserName = dto.Username,
-                Email = dto.Email,
-                Role = "User",
-            };
+            var user = new User { UserName = dto.Username, Email = dto.Email, Role = "User" };
 
             var result = await userManager.CreateAsync(user, dto.Password);
-            if (!result.Succeeded) return null;
+
+            if (!result.Succeeded)
+            {
+                // ლოგებში გამოვიტანოთ რეალური ერორები!
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine($"IDENTITY_ERROR: {error.Code} - {error.Description}");
+                }
+                return null;
+            }
 
             var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = $"{configuration["AppUrl"]}/verify-email?token={Uri.EscapeDataString(token)}&email={user.Email}";
