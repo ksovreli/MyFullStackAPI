@@ -58,14 +58,12 @@ string connectionString = builder.Configuration.GetConnectionString("BackpackSto
 builder.Services.AddDbContext<BackpackContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
-{
-    options.Password.RequiredLength = 6;
+builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.Password.RequireDigit = true;
-    options.Password.RequireUppercase = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
-    options.User.RequireUniqueEmail = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
 })
 .AddEntityFrameworkStores<BackpackContext>()
 .AddDefaultTokenProviders();
