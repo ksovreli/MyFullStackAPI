@@ -52,12 +52,10 @@ export class AuthService {
     
   }
 
-  // auth-service.ts
-register(credentials: any): Observable<User> {
-  const headers = { 'Content-Type': 'application/json' };
-  return this.http.post<User>(`${this.apiUrl}/register`, credentials, { headers });
+// auth-service.ts
+register(credentials: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/register`, credentials);
 }
-
   verifyEmail(email: string, token: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/confirm-email`, {
       params: { email, token }
