@@ -1,4 +1,4 @@
-using BackpackStoreFS.Data;
+﻿using BackpackStoreFS.Data;
 using BackpackStoreFS.Models.Entities;
 using BackpackStoreFS.ServiceContracts;
 using BackpackStoreFS.Services;
@@ -58,7 +58,8 @@ string connectionString = builder.Configuration.GetConnectionString("BackpackSto
 builder.Services.AddDbContext<BackpackContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddIdentity<User, IdentityRole>(options => {
+// შეცვალე IdentityRole -> IdentityRole<int>
+builder.Services.AddIdentity<User, IdentityRole<int>>(options => {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
@@ -67,6 +68,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
 })
 .AddEntityFrameworkStores<BackpackContext>()
 .AddDefaultTokenProviders();
+
 
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT Key is missing in appsettings.json");
