@@ -26,37 +26,59 @@ namespace BackpackStoreFS.Services
 
         public async Task<UserReadDto?> RegisterAsync(UserCreateDto dto)
         {
-            var user = new User { UserName = dto.Username, Email = dto.Email, Role = "User" };
-
-            var result = await userManager.CreateAsync(user, dto.Password);
-
-            if (!result.Succeeded)
+            // 1. შემოწმება: არსებობს თუ არა უკვე მომხმარებელი ამ მეილით
+            var existingUser = await userManager.FindByEmailAsync(dto.Email);
+            if (existingUser != null)
             {
-                // ლოგებში გამოვიტანოთ რეალური ერორები!
-                foreach (var error in result.Errors)
-                {
-                    Console.WriteLine($"IDENTITY_ERROR: {error.Code} - {error.Description}");
-                }
+                Console.WriteLine($"REGISTRATION_FAILED: Email {dto.Email} is already taken.");
                 return null;
             }
 
-            var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = $"{configuration["AppUrl"]}/verify-email?token={Uri.EscapeDataString(token)}&email={user.Email}";
+            // 2. ახალი მომხმარებლის შექმნა
+            var user = new User { UserName = dto.Username, Email = dto.Email, Role = "User" };
 
-            var message = $@"
-                <div style='background-color: {EmailBg}; padding: 50px 20px; font-family: ""Segoe UI"", Tahoma, sans-serif; text-align: center;'>
-                    <div style='max-width: 450px; margin: 0 auto; background: {CardBg}; border: 1px solid #1a1a1a; border-top: 4px solid {GoldColor}; padding: 40px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);'>
-                        <div style='text-transform: uppercase; letter-spacing: 5px; font-size: 10px; color: {GoldColor}; margin-bottom: 20px; font-weight: bold;'>New Operator Detected</div>
-                        <h2 style='color: #ffffff; font-size: 26px; margin: 0;'>WELCOME <span style='color: {GoldColor};'>{user.UserName?.ToUpper()}</span></h2>
-                        <p style='color: #a29c9c; font-size: 14px; line-height: 1.6; margin: 20px 0;'>Your account has been provisioned. Finalize the uplink to activate your profile.</p>
-                        <a href='{confirmationLink}' style='display: inline-block; background: {GoldColor}; color: #000; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;'>Establish Connection</a>
-                        <p style='color: #444; font-size: 11px; margin-top: 30px;'>&copy; {DateTime.Now.Year} APEX STORE FS. Secure Environment.</p>
-                    </div>
-                </div>";
+            try
+            {
+                // 3. მომხმარებლის რეგისტრაცია Identity-ით
+                var result = await userManager.CreateAsync(user, dto.Password);
 
-            await emailService.SendEmailAsync(user.Email!, "Uplink Required: Activate Account", message);
+                if (!result.Succeeded)
+                {
+                    // ლოგებში ვწერთ რეალურ შეცდომებს Identity-დან (მაგალითად: სუსტი პაროლი)
+                    foreach (var error in result.Errors)
+                    {
+                        Console.WriteLine($"IDENTITY_ERROR: {error.Code} - {error.Description}");
+                    }
+                    return null;
+                }
 
-            return MapToReadDto(user);
+                // 4. დადასტურების ტოკენის გენერაცია
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = $"{configuration["AppUrl"]}/verify-email?token={Uri.EscapeDataString(token)}&email={user.Email}";
+
+                // 5. HTML წერილის მომზადება
+                var message = $@"
+            <div style='background-color: {EmailBg}; padding: 50px 20px; font-family: ""Segoe UI"", Tahoma, sans-serif; text-align: center;'>
+                <div style='max-width: 450px; margin: 0 auto; background: {CardBg}; border: 1px solid #1a1a1a; border-top: 4px solid {GoldColor}; padding: 40px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);'>
+                    <div style='text-transform: uppercase; letter-spacing: 5px; font-size: 10px; color: {GoldColor}; margin-bottom: 20px; font-weight: bold;'>New Operator Detected</div>
+                    <h2 style='color: #ffffff; font-size: 26px; margin: 0;'>WELCOME <span style='color: {GoldColor};'>{user.UserName?.ToUpper()}</span></h2>
+                    <p style='color: #a29c9c; font-size: 14px; line-height: 1.6; margin: 20px 0;'>Your account has been provisioned. Finalize the uplink to activate your profile.</p>
+                    <a href='{confirmationLink}' style='display: inline-block; background: {GoldColor}; color: #000; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;'>Establish Connection</a>
+                    <p style='color: #444; font-size: 11px; margin-top: 30px;'>&copy; {DateTime.Now.Year} APEX STORE FS. Secure Environment.</p>
+                </div>
+            </div>";
+
+                // 6. წერილის გაგზავნა
+                await emailService.SendEmailAsync(user.Email!, "Uplink Required: Activate Account", message);
+
+                return MapToReadDto(user);
+            }
+            catch (Exception ex)
+            {
+                // 7. მონაცემთა ბაზის კონფლიქტების და სხვა შეცდომების დაჭერა
+                Console.WriteLine($"FATAL_REGISTRATION_ERROR: {ex.Message}");
+                return null;
+            }
         }
 
         public async Task<UserReadDto?> LoginAsync(UserLoginDto dto)
